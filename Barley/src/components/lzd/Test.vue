@@ -22,8 +22,10 @@
     <p>123456</p>
     <p>123qwe</p>
     <p>123qwe</p>
-	<p>qwe123</p>
-	<p>qwe123</p>
+    <p>qwe123</p>
+    <p>qwe123</p>
+    <p>解决冲突</p>
+    <p>解决冲突</p>
   </div>
 </template>
 
