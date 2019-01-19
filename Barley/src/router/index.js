@@ -8,7 +8,13 @@ var router = new Router({
     {
       path: '/',
       name: 'HelloWorld',
-      component: HelloWorld
+      component: HelloWorld,
+      meta: {
+        // 设置头部是否显示
+        headShow: true,
+        // 设置底部是否显示
+        footShow: true
+      }
     }
   ]
 })

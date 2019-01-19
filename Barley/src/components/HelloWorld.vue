@@ -1,8 +1,5 @@
 <template>
-  <div class="hello" style="height: 4000px">
-    <!-- 公共头部 -->
-    <Headpublic></Headpublic>
-    <!-- 公共头部 -->
+  <div class="hello" style="height: 2000px">
     <!-- 试验element插件库 -->
     <p>试验element插件库</p>
     <i class="el-icon-edit"></i>
@@ -21,23 +18,10 @@
       </span>
     </el-dialog>
     <!-- 试验element插件库 -->
-    <!-- 返回顶部 -->
-    <BackTop></BackTop>
-    <!-- 返回顶部 -->
-    <!-- 公共底部 -->
-    <Footpublic></Footpublic>
-    <!-- 公共底部 -->
   </div>
 </template>
 
 <script>
-// 头部引入
-import Headpublic from '@/components/lib/Headpublic'
-// 底部引入
-import Footpublic from '@/components/lib/Footpublic'
-// 返回顶部引入
-import BackTop from '@/components/lib/BackTop'
-
 // 引用局部组件内部
 // tween.js引用示例
 // import TWEEN from 'tween.js'
@@ -58,11 +42,6 @@ export default {
         })
         .catch(() => {})
     }
-  },
-  components: {
-    Headpublic,
-    Footpublic,
-    BackTop
   }
 }
 </script>
