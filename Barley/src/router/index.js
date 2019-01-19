@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
-import Test from '@/components/lzd/test'
+import testRoute from '@/components/lzd/test'
 
 Vue.use(Router)
 var router = new Router({
@@ -18,9 +18,9 @@ var router = new Router({
       }
     },
     {
-      path: '/test',
-      name: 'Test',
-      component: Test,
+      path: '/testRoute',
+      name: 'testRoute',
+      component: testRoute,
       meta: {
         // 设置头部是否显示
         headShow: true,
