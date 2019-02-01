@@ -1,7 +1,8 @@
 <template>
   <div class="hello" style="height: 2000px">
     <!-- 试验element插件库 -->
-    <p>试验element插件库</p>
+    <router-link to="/list">列表页</router-link>
+    <p>你好</p>
     <i class="el-icon-edit"></i>
     <i class="el-icon-share"></i>
     <i class="el-icon-delete"></i>
