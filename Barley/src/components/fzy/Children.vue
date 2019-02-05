@@ -33,7 +33,7 @@
         <div class="chh" v-for="(chhItem, chhIndex) in focusing.bigPic" :key="chhIndex">
           <img :src="chhItem.src">
         </div>
-        <ul>
+        <ul class="clear">
           <li v-for="(smallItem, smallIndex) in focusing.smallPic" :key="smallIndex">
             <img :src="smallItem.src">
           </li>
@@ -106,23 +106,28 @@ export default {
      height: 620px;
      background: #ffffff;
      margin-top: 20px;
-     ul{
-       margin-left: 370px;
-       position: relative;
-       top:-470px;
-       width: 577px;
-       li{
-         margin-top: 12px;
+     &>div{
+       height: 567px;
+       ul{
+         margin-left: 17px;
+         width: 454px;
          float: left;
-         width: 140px;
-         height: 250px;
-         background: white;
+         li{
+           margin-top: 12px;
+           float: left;
+           width: 140px;
+           height: 250px;
+           background: white;
+           &:nth-of-type(3), &:nth-of-type(6){
+             margin-right: 0;
+           }
+         }
        }
-     }
-     .clear{
+       .chh:nth-of-type(1){
+         float: left;
+       }
        .chh:nth-of-type(2){
          float: right;
-         margin-top: -460px;
        }
      }
      .Gather1{
@@ -144,6 +149,9 @@ export default {
        h4{
          font-size: 12px;
          color: #b57660;
+         white-space:nowrap;
+         overflow:hidden;
+         text-overflow:ellipsis;
        }
        p{
          font-size: 12px;
@@ -151,9 +159,6 @@ export default {
          span{
            color: black;
          }
-       }
-       h4{
-         white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
        }
      }
      .like{
@@ -163,6 +168,5 @@ export default {
        padding-top: 17px;
      }
    }
-
  }
 </style>

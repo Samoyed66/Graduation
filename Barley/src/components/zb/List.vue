@@ -61,7 +61,8 @@
               <li>最新上架</li>
             </ul>
             <div class="typeface">
-              <i class="fa fa-reorder in"></i><i class="fa fa-th-large"></i>
+              <i class="fa fa-reorder in"></i>
+              <i class="fa fa-th-large"></i>
             </div>
           </div>
           <div class="box2">
@@ -251,5 +252,224 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "~@/assets/less/list";
+  #list{
+    width: 1200px;
+    margin: 0 auto;
+    p{
+      width: 100%;
+      height: 52px;
+      background: white;
+      line-height: 52px;
+      font-size: 12px;
+      text-indent: 19px;
+      span{
+        color: #ff3c1b;
+      }
+    }
+    #box{
+      overflow: hidden;
+      .left{
+        width: 928px;
+        float: left;
+        margin-bottom: 41px;
+        .choice{
+          width: 100%;
+          height: 234px;
+          background: white;
+          border: 1px solid #ccc;
+          .city{
+            width: 881px;
+            height: 78px;
+            margin:0 auto;
+            border-bottom: 1px dashed #ccc;
+            overflow: hidden;
+            span{
+              float: left;
+              margin-top: 21px;
+              font-size: 14px;
+            }
+            ul{
+              float: left;
+              height: 28px;
+              line-height: 28px;
+              margin-top: 11px;
+              margin-left: 17px;
+              li{
+                display: inline-block;
+                font-size: 14px;
+                padding: 6px 10px;
+                cursor: pointer;
+              }
+              .selection{
+                background: #ff3c1b;
+                color: white;
+              }
+            }
+          }
+          .city:nth-of-type(3){
+            border: none;
+          }
+        }
+        .box1{
+          width: 927px;
+          height: 100%;
+          background: white;
+          margin-top: 17px;
+          border: 1px solid #ccc;
+          .tab{
+            width: 100%;
+            height: 32px;
+            background: #f8f8f9;
+            margin-bottom: 15px;
+            ul{
+              float: left;
+              overflow: hidden;
+              li{
+                float: left;
+                font-size: 14px;
+                padding: 6px 15px;
+                cursor: pointer;
+              }
+              .popular{
+                background: #fff;
+                color: #ff3c1b;
+              }
+            }
+            .typeface{
+              height: 30px;
+              float: left;
+              margin-left: 524px;
+              border-radius: 3px;
+              cursor: pointer;
+              i{
+                font-size: 10px;
+                padding: 9px 17px 9px 21px;
+                border: 1px solid #ccc;
+              }
+              i:nth-of-type(1){
+                border-top-left-radius: 3px;
+                border-bottom-left-radius: 3px;
+              }
+              i:nth-of-type(2){
+                border-top-right-radius: 3px;
+                border-bottom-right-radius: 3px;
+              }
+              .in{
+                border: 1px solid #ff3c1b;
+                color: #ff3c1b;
+              }
+            }
+          }
+          .box2{
+            width: 908px;
+            margin: 0 auto;
+            .main1{
+              width: 908px;
+              padding: 25px 0 19px 0;
+              overflow: hidden;
+              display: inline-block;
+              border-bottom: 1px dashed #ccc;
+              img{
+                margin-left: 10px;
+                width: 151px;
+                height: 207px;
+                float: left;
+              }
+              dl{
+                float: left;
+                margin-left: 21px;
+                dt{
+                  font-size: 16px;
+                }
+                dd{
+                  font-size: 12px;
+                  color: #999;
+                  margin-top: 15px;
+                  span{
+                    display: inline-block;
+                    margin-right: 12px;
+                    color: #ff3c1c;
+                    font-weight: bold;
+                  }
+                  i{
+                    color: #ff3c1c;
+                  }
+                }
+                dd:nth-of-type(3){
+                  color: black;
+                  font-size: 14px;
+                }
+                dd:nth-of-type(4){
+                  font-size: 12px;
+                }
+                dd:nth-of-type(5){
+                  color: black;
+                }
+              }
+            }
+            .paging{
+              width: 100%;
+              height: 42px;
+              margin-left: 200px;
+              display: flex;
+              line-height: 42px;
+            }
+          }
+        }
+      }
+      .right{
+        width: 257px;
+        float: right;
+        h4{
+          height: 40px;
+          line-height: 40px;
+          background: #e6e6e6;
+          font-size: 14px;
+          text-indent: 16px;
+        }
+        .main{
+          overflow: hidden;
+          padding: 21px 10px 16px 16px;
+          background: white;
+          cursor: pointer;
+          img{
+            width: 100px;
+            height: 133px;
+            float: left;
+          }
+          .right-1{
+            width: 120px;
+            float: right;
+            dl{
+              dt{
+                font-size: 12px;
+              }
+              dd{
+                font-size: 12px;
+                color: #999;
+                span{
+                  color: #ff3c1b;
+                  font-weight: bold;
+                }
+              }
+              dd:nth-of-type(1){
+                margin-top: 50px;
+              }
+              dd:nth-of-type(3){
+                margin-top: 22px;
+              }
+            }
+          }
+        }
+        .main:nth-of-type(2){
+          border-bottom: 1px solid #ccc;
+        }
+        .empty{
+          width: 262px;
+          height: 17px;
+          background: white;
+        }
+      }
+    }
+  }
 </style>

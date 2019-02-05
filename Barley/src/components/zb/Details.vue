@@ -329,5 +329,339 @@ export default {
 </script>
 
 <style scoped lang="less">
-  @import "~@/assets/less/details";
+  #details{
+    .head{
+      width: 1200px;
+      height: 50px;
+      line-height: 50px;
+      margin: 0 auto;
+      background: #f6f6f6;
+      p{
+        text-indent: 21px;
+        font-size: 12px;
+        span{
+          color: #ff3c1b;
+        }
+      }
+    }
+    #box{
+      width: 1200px;
+      height: 457px;
+      background: white;
+      margin: 0 auto;
+      overflow: hidden;
+      margin-bottom: 30px;
+      .information{
+        padding: 31px 11px 18px 22px;
+        float: left;
+        overflow: hidden;
+        img{
+          width: 277px;
+          height: 372px;
+          float: left;
+        }
+        .content{
+          width: 600px;
+          float: left;
+          margin-left: 19px;
+          h2{
+            font-size: 20px;
+            margin-bottom: 38px;
+          }
+          p{
+            font-size: 16px;
+            color: #495060;
+            margin-bottom: 23px;
+          }
+          img{
+            width: 600px;
+            height: 84px;
+            display: block;
+          }
+          .time{
+            width: 100%;
+            overflow: hidden;
+            span{
+              display: inline-block;
+              margin-top: 56px;
+              font-size: 12px;
+              float: left;
+            }
+            ul{
+              overflow: hidden;
+              margin-top: 22px;
+              li{
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                padding: 8px 20px;
+                display: inline-block;
+                font-size: 12px;
+                margin-left: 10px;
+                margin-top: 5px;
+              }
+              .selection{
+                border: 1px solid #ff3c1b;
+                color: #ff3c1b;
+              }
+            }
+          }
+          .ticket{
+            width: 100%;
+            height: 36px;
+            overflow: hidden;
+            margin-top: 25px;
+            span{
+              display: inline-block;
+              font-size: 14px;
+              float: left;
+              margin-top: 8px;
+            }
+            ul{
+              li{
+                display: inline-block;
+                padding: 8px 13px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+                font-size: 12px;
+                margin-left: 12px;
+              }
+              .on{
+                background: #f7f7f7;
+                color: #ccc;
+              }
+            }
+          }
+          a{
+            display: inline-block;
+            button{
+              width: 152px;
+              height: 41px;
+              border-radius: 4px;
+              font-size: 16px;
+              color: white;
+              background: #ff3c1b;
+              margin: 12px 0 0 66px;
+            }
+          }
+        }
+      }
+      .score{
+        float: left;
+        dl:nth-of-type(1){
+          width: 263px;
+          border-bottom: 1px dashed #ccc;
+          dt{
+            font-size: 14px;
+            margin-top: 34px;
+            margin-bottom: 19px;
+          }
+          dd{
+            display: flex;
+            font-size: 12px;
+            margin-bottom: 18px;
+            span{
+              display: inline-block;
+              margin-left: 8px;
+              color: #ff3c1b;
+            }
+          }
+        }
+        dl{
+          border-bottom: 1px dashed #ccc;
+          dt{
+            font-size: 12px;
+            margin: 12px 0 20px 0;
+          }
+          dd{
+            font-size: 12px;
+            margin-bottom: 12px;
+            i{
+              color: #ff3c1b;
+            }
+          }
+        }
+      }
+    }
+    #box1{
+      width: 1200px;
+      margin: 0 auto;
+      overflow: hidden;
+      .left{
+        width: 915px;
+        height: 2269px;
+        float: left;
+        background: white;
+        ul{
+          width: 100%;
+          overflow: hidden;
+          margin-bottom: 42px;
+          li{
+            float: left;
+            font-size: 16px;
+            padding: 7px 17px;
+          }
+          .selection1{
+            border-top: 3px solid #ff3c1b;
+          }
+        }
+        .information{
+          width: 899px;
+          height: 27px;
+          line-height: 27px;
+          border-left: 2px solid #ff3c1b;
+          margin-left: 30px;
+          span{
+            display: inline-block;
+            margin-left: 9px;
+            font-size: 18px;
+          }
+          strong{
+            width: 765px;
+            display: inline-block;
+            border-bottom: 1px dashed #ccc;
+            margin-left: 30px;
+          }
+        }
+        .information:nth-of-type(3){
+          margin: 22px 0 25px 40px;
+        }
+        img{
+          margin: 35px 0 39px 130px;
+        }
+        dl{
+          width: 721px;
+          margin-left: 143px;
+          dt{
+            width: 721px;
+            height: 41px;
+            line-height: 41px;
+            background: #eee;
+            text-indent: 8px;
+            margin: 22px 0;
+          }
+          dd{
+            width: 721px;
+            font-size: 12px;
+            line-height: 22px;
+            img{
+              width: 277px;
+              height: 372px;
+              margin:0 0 9px 230px;
+            }
+          }
+        }
+        .comments{
+          width: 721px;
+          margin-left: 143px;
+          .stars{
+            display: flex;
+            margin-bottom: 9px;
+            span{
+              display: inline-block;
+              margin-right: 8px;
+            }
+          }
+          textarea{
+            width: 741px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            text-indent: 7px;
+          }
+          a{
+            margin: 20px 0 20px 20px;
+            display: inline-block;
+            button{
+              width: 153px;
+              height: 42px;
+              border-radius: 5px;
+              background: #ff3c1b;
+              color: white;
+              font-size: 14px;
+            }
+          }
+        }
+        ul{
+          li{
+            width: 847px;
+            overflow: hidden;
+            margin-: 20px 0 39px 0;
+            p:nth-of-type(1){
+              float: left;
+              img{
+                width: 45px;
+                height: 45px;
+                margin: 0;
+              }
+              span{
+                display: inline-block;
+                margin-left: 13px;
+                font-size: 12px;
+              }
+            }
+            p:nth-of-type(2){
+              width: 742px;
+              height: 87px;
+              background: #f0f0f0;
+              float: right;
+              span{
+                display: inline-block;
+                margin: 23px 0 0 20px;
+                font-size: 14px;
+              }
+              strong{
+                display: inline-block;
+                display: flex;
+                margin: 20px;
+                font-size: 12px;
+              }
+            }
+          }
+        }
+      }
+      .right{
+        width: 264px;
+        float: right;
+
+        dl{
+          background: white;
+          padding: 0 6px 34px 6px;
+          dt{
+            width: 100%;
+            height: 33px;
+            line-height: 33px;
+            border-bottom: 1px solid #ccc;
+            font-size: 16px;
+            margin-bottom: 18px;
+          }
+          dd{
+            font-size: 12px;
+            line-height: 24px;
+            border-bottom: 1px dashed #ccc;
+            p{
+              margin-bottom: 8px;
+            }
+          }
+          .recommend{
+            font-size: 12px;
+            text-align: center;
+            line-height: 24px;
+            border-bottom: 1px dashed #ccc;
+            img{
+              width: 100%;
+              height: 356px;
+            }
+          }
+          dd:nth-of-type(6){
+            border-bottom: 1px solid #ccc;
+          }
+        }
+        dl:nth-of-type(2){
+          margin-top: 10px;
+        }
+        dd:nth-of-type(10){
+          border-bottom: 1px solid #ccc;
+        }
+      }
+    }
+  }
 </style>

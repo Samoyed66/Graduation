@@ -40,7 +40,7 @@ var router = new Router({
         footShow: true
       }
     },
-	{
+    {
       path: '/children',
       name: 'Children',
       component: Children,
