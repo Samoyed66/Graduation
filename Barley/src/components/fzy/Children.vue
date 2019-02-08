@@ -21,7 +21,7 @@
       <ul>
         <li v-for="(likeItem, likeIndex) in likeList" :key="likeIndex">
           <img :src="likeItem.src">
-          <h4>{{likeItem.title}}</h4>
+          <h4>{{likeItem.picTitle}}</h4>
           <p>票价：<span>{{likeItem.price}}</span>起</p>
         </li>
       </ul>

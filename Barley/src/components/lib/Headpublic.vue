@@ -4,14 +4,20 @@
     <nav class="nav">
       <div class="wrap clear">
         <!-- 登录注册 -->
-        <p>
+        <div class="loginBtn">
           HI,欢迎来大麦[
-          <a href="javascript:;">登录</a>
-          <a href="javascript:;">注册</a>
+          <div v-show="off">
+            <router-link to="/login">登录</router-link>
+            <router-link to="/registered">注册</router-link>
+          </div>
+          <div v-show="!off">
+            <a href="javascript:;">{{getListDate.num}}</a>
+            <a href="javascript:;" @click="outerLocal">退出</a>
+          </div>
           ]
-        </p>
+        </div>
         <!-- 我的大麦 -->
-        <div>
+        <div class="myMai">
           <a href="javascript:;">我的大麦 <i class="el-icon-arrow-down"></i></a>
           <ul class="clear mineInfo">
             <li>个人信息</li>
@@ -69,13 +75,15 @@
     <header class="header">
       <div class="wrap clear">
         <!-- logo -->
-        <img src="@/assets/images/logo.png">
+        <router-link to="/">
+          <img src="@/assets/images/logo.png">
+        </router-link>
         <!-- 城市列表 -->
         <div class="cityList">北京 <i class="el-icon-arrow-down"></i></div>
         <!-- 搜索框 -->
         <div class="search clear">
           <input type="text" placeholder="请输入演出、艺人、场馆名称...">
-          <button>搜索</button>
+          <router-link tag="button" to="/list">搜索</router-link>
         </div>
       </div>
     </header>
@@ -84,7 +92,28 @@
 
 <script>
 export default {
-  name: 'Headpublic'
+  name: 'Headpublic',
+  data () {
+    return {
+      // local数据
+      getListDate: [],
+      off: true
+    }
+  },
+  methods: {
+    outerLocal () {
+      this.$local.remove('loginUser')
+      this.off = true
+    }
+  },
+  watch: {
+    $route (to, from) {
+      if (this.off && this.$local.obtain('loginUser')) {
+        this.getListDate = this.$local.obtain('loginUser')
+        this.off = false
+      }
+    }
+  }
 }
 </script>
 
@@ -102,25 +131,27 @@ export default {
     line-height: 34px;
     border-bottom: 1px solid #e5e5e5;
     .wrap{
-      &>p{
+      .loginBtn{
         font-size: 12px;
         color: #495060;
         float: left;
         padding-right: 10px;
-        a{
-          &:nth-of-type(1){
-            color: #ff3c1b;
-          }
-          &:nth-of-type(2){
-            color: #495060;
-            &:hover{
-              color: #57a3f3;
+        div{
+          display: inline-block;
+          a{
+            &:nth-of-type(1){
+              color: #ff3c1b;
+            }
+            &:nth-of-type(2){
+              color: #495060;
+              &:hover{
+                color: #57a3f3;
+              }
             }
           }
         }
-
       }
-      &>div{
+      .myMai{
         float: left;
         position: relative;
         a{
@@ -340,6 +371,7 @@ export default {
           background: #ff3c1b;
           font-size: 16px;
           color: white;
+          cursor: pointer;
         }
       }
     }
