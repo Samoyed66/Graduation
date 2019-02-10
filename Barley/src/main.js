@@ -19,6 +19,8 @@ Vue.use(vueAxios, axios)
 Vue.use(ElementUI)
 Vue.use(Local)
 Vue.use(Back)
+/* easymock数据公共路径绑定 */
+Vue.prototype.$url = 'https://www.easy-mock.com/mock/5c42cdfcbfeaf7769cc002c2/barley/'
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */
