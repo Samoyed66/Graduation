@@ -12,6 +12,7 @@ import Details from '@/components/zb/Details'
 import Children from '@/components/fzy/Children'
 import Dance from '@/components/fzy/Dance'
 import Drama from '@/components/fzy/Drama'
+import Rock from '@/components/fzy/Rock'
 Vue.use(Router)
 var router = new Router({
   routes: [
@@ -96,6 +97,17 @@ var router = new Router({
       path: '/drama',
       name: 'Drama',
       component: Drama,
+      meta: {
+        // 设置头部是否显示
+        headShow: true,
+        // 设置底部是否显示
+        footShow: true
+      }
+    },
+    {
+      path: '/rock',
+      name: 'Rock',
+      component: Rock,
       meta: {
         // 设置头部是否显示
         headShow: true,

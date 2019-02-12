@@ -46,7 +46,10 @@
           </div>
           <div class="box2 clear">
             <div @click="toDetail(ListItem)" class="main1" v-for="(ListItem, ListIndex) in someList" :key="ListIndex" :style="{'width': iconNum === 1 ? '227px':'908px'}">
-              <img :src="ListItem.src">
+              <div class="listPic" @mouseenter="InfoShow(ListIndex)" @mouseleave="InfoHide">
+                <img :src="ListItem.src">
+                <div class="cityInfo" v-show="iconNum === 1" :style="{'transform': cityInfoShow === ListIndex ? 'translateY(0)':'translateY(20px)'}">{{ListItem.city}}</div>
+              </div>
               <dl v-show="iconNum !== 1">
                 <dt>[{{ListItem.city | someCity}}] {{ListItem.picTitle}}</dt>
                 <dd>{{ListItem.cparagraph | somePage}}</dd>
@@ -55,6 +58,11 @@
                 <dd><span>{{ListItem.price}}</span>售票中</dd>
                 <dd><i class="iconfont">&#xe623;</i>电子票</dd>
               </dl>
+              <div class="smallInfo" v-show="iconNum === 1">
+                <h4>{{ListItem.picTitle}}</h4>
+                <p>{{ListItem.time}}</p>
+                <p><span>{{ListItem.price}}</span>售票中</p>
+              </div>
             </div>
             <div class="paging">
               <span>共 {{allNum}} 条</span>
@@ -134,7 +142,8 @@ export default {
       // 变量
       listNum: 0,
       changeNum: 0,
-      allNum: 0
+      allNum: 0,
+      cityInfoShow: -1
     }
   },
   filters: {
@@ -220,6 +229,12 @@ export default {
           this.allNum += this.GetList[k].list.length
         }
       })
+    },
+    InfoShow (InfoI) {
+      this.cityInfoShow = InfoI
+    },
+    InfoHide () {
+      this.cityInfoShow = -1
     }
   },
   created () {
@@ -242,7 +257,7 @@ export default {
   #list{
     width: 1200px;
     margin: 0 auto;
-    p{
+    &>p{
       width: 100%;
       height: 52px;
       background: white;
@@ -361,11 +376,33 @@ export default {
               overflow: hidden;
               cursor: pointer;
               border-bottom: 1px dashed #ccc;
-              img{
-                margin-left: 10px;
+              .listPic{
                 width: 151px;
                 height: 207px;
+                margin-left: 10px;
                 float: left;
+                overflow: hidden;
+                position: relative;
+                img{
+                  width: 151px;
+                  height: 207px;
+                }
+                .cityInfo{
+                  width: 151px;
+                  font-size: 12px;
+                  height: 20px;
+                  line-height: 20px;
+                  background: #ff3c1c;
+                  text-align: center;
+                  position: absolute;
+                  color: white;
+                  bottom: 0;
+                  left: 0;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  transition: .3s;
+                }
               }
               dl{
                 float: left;
@@ -402,6 +439,28 @@ export default {
                     font-style: normal;
                     -webkit-font-smoothing: antialiased;
                     -moz-osx-font-smoothing: grayscale;
+                  }
+                }
+              }
+              .smallInfo{
+                margin-left: 10px;
+                width: 151px;
+                font-size: 12px;
+                color: #495060;
+                h4{
+                  width: 100%;
+                  height: 17px;
+                  line-height: 17px;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  margin-bottom: 4px;
+                }
+                p{
+                  height: 16px;
+                  line-height: 16px;
+                  span{
+                    color: #ff3c1c;
                   }
                 }
               }
