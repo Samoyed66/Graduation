@@ -1,37 +1,40 @@
 <template>
   <div id="details">
     <div class="head">
-      <p>大麦 > 北京 > <span>电影</span> > 大型多媒体励志互动儿童剧《奇门遁甲》( 11月 )</p>
+      <p>
+        <router-link to="/">大麦</router-link> >
+        <a href="javascript:;">{{getCity}}</a> >
+        <a href="javascript:;">电影</a> >
+        <a href="javascript:;">{{detailCont.picTitle}}</a>
+      </p>
     </div>
     <div id="box">
       <div class="information">
-        <img src="@/assets/images/haibao_03.jpg">
+        <img :src="detailCont.src">
         <div class="content">
-          <h2>
-            大型多媒体励志互动儿童剧《奇门遁甲》( 11月 )
-          </h2>
-          <p>“奇门遁甲”</p>
-          <img src="@/assets/images/jingdu-01_03.jpg">
+          <h2>{{detailCont.picTitle}}</h2>
+          <p>“{{detailCont.picTitle | TitleName}}”</p>
+          <div class="step">
+            <el-steps :space="300" :active="2" finish-status="success" :align-center="true">
+              <el-step title="项目待定"></el-step>
+              <el-step title="预售/预定"></el-step>
+              <el-step title="售票中"></el-step>
+              <el-step title="演出开始"></el-step>
+            </el-steps>
+          </div>
           <div class="time">
             <span>演出时间:</span>
             <ul>
-              <li class="selection">1999-11-09 09:44:55</li>
-              <li>1999-11-09 09:44:55</li>
-              <li>1999-11-09 09:44:55</li>
-              <li>1999-11-09 09:44:55</li>
+              <li @click="changeTimeClass(timeIndex)" :class="{'selection': perforTimeNum === timeIndex}" v-for="(timeItem, timeIndex) in perforTime" :key="timeIndex">{{timeItem}}</li>
             </ul>
           </div>
           <div class="ticket">
             <span>选择价票:</span>
             <ul>
-              <li class="on">80元</li>
-              <li>90元</li>
-              <li>100元</li>
+              <li @click="changepriceClass(priceIndex)" :class="{'selection': priceNum === priceIndex}" v-for="(priceItem, priceIndex) in priceList" :key="priceIndex">{{priceItem}}</li>
             </ul>
           </div>
-          <a href="#">
-            <button>选座购买</button>
-          </a>
+          <button @click="toSelection">选座购买</button>
         </div>
       </div>
       <div class="score">
@@ -39,22 +42,23 @@
           <dt>大麦网评分:</dt>
           <dd>
             <el-rate
-              score-template="{value}"
-              v-model="value5"
+              v-model="scoreAll"
               disabled
               show-score
-              text-color="#ff9900">
+              :colors="['#e9e9e9', '#ff3c1b', '#ff3c1b']"
+              text-color="#ff3c1b"
+              score-template="{value}">
             </el-rate>
             <span>3000</span>人参与评论
           </dd>
         </dl>
         <dl>
           <dt>演出时间</dt>
-          <dd>2017-12-23-2017-12-26</dd>
+          <dd>{{detailCont.time}}</dd>
         </dl>
         <dl>
           <dt>演出场馆</dt>
-          <dd>中国中心儿童剧院-海淀</dd>
+          <dd>{{detailCont.city}}</dd>
           <dd>
             <i class="fa fa-map-marker"></i>
             交通路线
@@ -75,17 +79,30 @@
     </div>
     <div id="box1">
       <div class="left">
-        <ul>
-          <li class="selection1">演出信息</li>
-          <li>精彩剧评</li>
-          <li>购买说明</li>
-          <li>付款方式</li>
+        <ul class="subTitle clear">
+          <li @click="changeTitleClass(subIndex)" :class="{'selection1': cardTitleNum === subIndex}" v-for="(subItem, subIndex) in cardTitle" :key="subIndex">{{subItem}}</li>
         </ul>
         <div class="information">
           <span>基本信息</span>
           <strong></strong>
         </div>
-        <img src="@/assets/images/baoge_03.jpg">
+        <div class="informationCont clear">
+          <div>演出时间</div>
+          <div>{{detailCont.time}}</div>
+          <div>演出场馆</div>
+          <div>{{detailCont.city}} 音乐厅</div>
+          <div>演出时间</div>
+          <div>{{detailCont.time}}</div>
+          <div>演出场馆</div>
+          <div>
+            <p>{{detailCont.city}} 音乐厅</p>
+            <p>{{detailCont.city}} 音乐厅</p>
+            <p>{{detailCont.city}} 音乐厅</p>
+            <p>{{detailCont.city}} 音乐厅</p>
+            <p>{{detailCont.city}} 音乐厅</p>
+            <p>{{detailCont.city}} 音乐厅</p>
+          </div>
+        </div>
         <div class="information">
           <span>项目介绍</span>
           <strong></strong>
@@ -96,18 +113,11 @@
           <dt>演出介绍</dt>
           <dd>世界经典原版音乐剧《猫》</dd>
           <dd>猫的足迹</dd>
-          <dd>发动机设计费第三萨卡积分卡萨九分裤卡房间卡萨来得及发啥艰苦奋斗拉萨附近开了大是否爱神的箭弗兰克大水井坊都流口水就发来看sdf
-          发的撒多拉斯加的卡萨阿克苏解放贷款撒酒疯案件开发卡萨荆防颗粒第三方卡卡发到付件
-          司法鉴定撒疯狂拉升的积分akdsaja爱德华撒垃圾袋卡死了肯德基卡萨丁雷克萨九分裤拉法基分开打来的解答康师傅的空间撒肥肠粉a
-            华东师范大框架和房间爱上咖啡大垃圾袋撒萨哈迪斯凯迪拉克加大进口大量开始打圣诞快乐加大卡接口的就爱看的奥凯电缆卡的金卡时间段adaj
-            傻大姐啊实打实的马圣诞节卡萨记斗看阿加圣诞节撒谎
-          </dd>
+          <dd>{{detailCont.cparagraph | firstPage}}</dd>
           <dd>
-            <img src="@/assets/images/haibao_03.jpg">
+            <img :src="detailCont.src">
           </dd>
-          <dd>伦敦西区及纽约百老汇有史以来成功,连续公演以来最久的音乐剧之一</dd>
-          <dd>伦敦西区及纽约百老汇有史以来成功,连续公演以来最久的音乐剧之一</dd>
-          <dd>伦敦西区及纽约百老汇有史以来成功,连续公演以来最久的音乐剧之一</dd>
+          <dd>{{detailCont.cparagraph | nextPage}}</dd>
         </dl>
         <div class="information">
           <span>写剧评</span>
@@ -117,130 +127,34 @@
           <div class="stars">
             打个分吧:
             <el-rate
-              v-model="value5"
-              disabled
+              v-model="score"
               show-score
-              text-color="#ff9900"
+              :colors="['#e9e9e9', '#f90', '#ff3c1b']"
+              text-color="#ff3c1b"
               score-template="{value}">
             </el-rate>
           </div>
-          <textarea rows="8" cols="40" maxlength="1000" placeholder="写个评论吧10-1000字"></textarea>
-          <a href="#">
-            <button>评论</button>
-          </a>
+          <textarea v-model="comVal" rows="8" cols="40" maxlength="1000" placeholder="写个评论吧10-1000字"></textarea>
+          <button @click="sendCom">评论</button>
         </div>
-        <ul>
-          <li>
+        <ul class="commentCont">
+          <li v-for="(comItem, comIndex) in comList" :key="comIndex">
             <p>
-              <img src="@/assets/images/haibao_03.jpg">
-              <span>13</span>
+              <img :src="detailCont.src">
+              <span>{{comIndex + 12}}</span>
             </p>
             <p>
-              <span>喜剧风格引发深度思考，精彩！精彩！精彩！非常值得一看!</span>
+              <span>{{comItem.title}}</span>
               <strong>
                 <el-rate
-                  v-model="value5"
+                  v-model="comItem.num"
                   disabled
                   show-score
-                  text-color="#ff9900"
+                  :colors="['#e9e9e9', '#f90', '#ff3c1b']"
+                  text-color="#ff3c1b"
                   score-template="{value}">
                 </el-rate>
-                2017年12月23日
-              </strong>
-            </p>
-          </li>
-          <li>
-            <p>
-              <img src="@/assets/images/haibao_03.jpg">
-              <span>14</span>
-            </p>
-            <p>
-              <span>喜剧风格引发深度思考，精彩！精彩！精彩！非常值得一看!</span>
-              <strong>
-                <el-rate
-                  v-model="value5"
-                  disabled
-                  show-score
-                  text-color="#ff9900"
-                  score-template="{value}">
-                </el-rate>
-                2017年12月23日
-              </strong>
-            </p>
-          </li>
-          <li>
-            <p>
-              <img src="@/assets/images/haibao_03.jpg">
-              <span>15</span>
-            </p>
-            <p>
-              <span>喜剧风格引发深度思考，精彩！精彩！精彩！非常值得一看!</span>
-              <strong>
-                <el-rate
-                  v-model="value5"
-                  disabled
-                  show-score
-                  text-color="#ff9900"
-                  score-template="{value}">
-                </el-rate>
-                2017年12月23日
-              </strong>
-            </p>
-          </li>
-          <li>
-            <p>
-              <img src="@/assets/images/haibao_03.jpg">
-              <span>16</span>
-            </p>
-            <p>
-              <span>喜剧风格引发深度思考，精彩！精彩！精彩！非常值得一看!</span>
-              <strong>
-                <el-rate
-                  v-model="value5"
-                  disabled
-                  show-score
-                  text-color="#ff9900"
-                  score-template="{value}">
-                </el-rate>
-                2017年12月23日
-              </strong>
-            </p>
-          </li>
-          <li>
-            <p>
-              <img src="@/assets/images/haibao_03.jpg">
-              <span>17</span>
-            </p>
-            <p>
-              <span>喜剧风格引发深度思考，精彩！精彩！精彩！非常值得一看!</span>
-              <strong>
-                <el-rate
-                  v-model="value5"
-                  disabled
-                  show-score
-                  text-color="#ff9900"
-                  score-template="{value}">
-                </el-rate>
-                2017年12月23日
-              </strong>
-            </p>
-          </li>
-          <li>
-            <p>
-              <img src="@/assets/images/haibao_03.jpg">
-              <span>18</span>
-            </p>
-            <p>
-              <span>喜剧风格引发深度思考，精彩！精彩！精彩！非常值得一看!</span>
-              <strong>
-                <el-rate
-                  v-model="value5"
-                  disabled
-                  show-score
-                  text-color="#ff9900"
-                  score-template="{value}">
-                </el-rate>
-                2017年12月23日
+                <span>{{comItem.time}}</span>
               </strong>
             </p>
           </li>
@@ -249,29 +163,10 @@
       <div class="right">
         <dl>
           <dt>热门推荐</dt>
-          <dd class="recommend">
-            <img src="@/assets/images/haibao_03.jpg">
-             大型多媒体励志互动儿童剧《爱丽丝梦幻仙境》( 11月 )
-          </dd>
-          <dd>
-            大型多媒体励志互动儿童剧《爱丽丝梦幻仙境》( 11月 )
-            <p>2017-09-17-2017-09-17</p>
-          </dd>
-          <dd>
-            大型多媒体励志互动儿童剧《爱丽丝梦幻仙境》( 11月 )
-            <p>2017-09-17-2017-09-17</p>
-          </dd>
-          <dd>
-          大型多媒体励志互动儿童剧《爱丽丝梦幻仙境》( 11月 )
-            <p>2017-09-17-2017-09-17</p>
-          </dd>
-          <dd>
-            大型多媒体励志互动儿童剧《爱丽丝梦幻仙境》( 11月 )
-            <p>2017-09-17-2017-09-17</p>
-          </dd>
-          <dd>
-            大型多媒体励志互动儿童剧《爱丽丝梦幻仙境 ( 11月 )
-            <p>2017-09-17-2017-09-17</p>
+          <dd @click="toDetail(hotItem)" @mouseenter="HotShow(hotIndex)" :class="{'recommend': HotNum === hotIndex}" v-for="(hotItem, hotIndex) in HotRecList" :key="hotIndex">
+            <img v-show="HotNum === hotIndex" :src="hotItem.src">
+             {{hotItem.picTitle}}
+            <p>{{hotItem.time}}</p>
           </dd>
         </dl>
         <dl>
@@ -323,8 +218,156 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+var moment = require('moment')
 export default {
-  name: 'Details'
+  name: 'Details',
+  data () {
+    return {
+      HotRecList: [],
+      HotNum: 0,
+      comVal: '',
+      scoreAll: 4.6,
+      score: 0,
+      getCity: '北京',
+      detailCont: {},
+      perforTime: ['1999-11-09 09:44:55', '2000-05-22 06:48:36', '2000-07-16 07:19:01', '2002-09-22 04:43:40'],
+      perforTimeNum: -1,
+      priceList: ['80元', '90元', '100元'],
+      priceNum: -1,
+      cardTitle: ['演出信息', '精彩剧评', '购买说明', '付款方式'],
+      cardTitleNum: 0,
+      comList: [
+        {
+          title: '喜剧风格引发深度思考，精彩！精彩！精彩！非常值得一看!',
+          num: 1.5,
+          time: '2017年12月23日'
+        },
+        {
+          title: '喜剧风格引发深！精彩！非常值得一看!',
+          num: 2.5,
+          time: '2017年12月23日'
+        },
+        {
+          title: '喜剧风格引发深度思考，精彩！精得一看!',
+          num: 3.5,
+          time: '2017年12月23日'
+        },
+        {
+          title: '喜剧风格引发深度思考一看!',
+          num: 4.5,
+          time: '2017年12月23日'
+        },
+        {
+          title: '精彩！精彩！精彩！非常值得一看!',
+          num: 5,
+          time: '2017年12月23日'
+        },
+        {
+          title: '值得一看!',
+          num: 5,
+          time: '2017年12月23日'
+        }
+      ]
+    }
+  },
+  filters: {
+    TitleName (item) {
+      return item.substring(3, 7)
+    },
+    firstPage (item) {
+      return item.substring(0, 350)
+    },
+    nextPage (item) {
+      return item.substring(350, 500)
+    }
+  },
+  watch: {
+    $route (to, from) {
+      if (this.$local.obtain('DetailData')) {
+        this.detailCont = this.$local.obtain('DetailData')
+      }
+      window.scrollTo(0, 0)
+    }
+  },
+  methods: {
+    // vuex选定时间
+    ...mapMutations(['toTime', 'toPrice']),
+    // 点击跳转详情页并存数据
+    toDetail (val) {
+      // val是点击时当前的一组数据
+      // 原型上面绑定的local本地数据存储的方法
+      this.$local.set('DetailData', val)
+      // 路由跳转到详情页不过地址后面带上对应的id值，对应的路由index文件里面要加上一个/:id
+      this.$router.push({path: '/details/' + val.id})
+      window.scrollTo(0, 0)
+    },
+    changeTimeClass (timeI) {
+      if (this.perforTimeNum === timeI) {
+        this.perforTimeNum = -1
+      } else {
+        this.perforTimeNum = timeI
+      }
+    },
+    changepriceClass (priceI) {
+      if (this.priceNum === priceI) {
+        this.priceNum = -1
+      } else {
+        this.priceNum = priceI
+      }
+    },
+    // 跳转选座页
+    toSelection () {
+      if (this.perforTimeNum !== -1 && this.priceNum !== -1) {
+        this.toTime(this.perforTime[this.perforTimeNum])
+        this.toPrice(parseInt(this.priceList[this.priceNum]))
+        this.$router.push({path: '/selection'})
+      }
+    },
+    changeTitleClass (TitleI) {
+      this.cardTitleNum = TitleI
+    },
+    // 发送评论
+    sendCom () {
+      if (this.score === 0 || this.comVal.length < 10) {
+        this.$alert('当前评论至少10字或咱没有评分', '提示', {
+          confirmButtonText: '确定',
+          center: true
+        })
+      } else {
+        var obj = {
+          title: this.comVal,
+          num: this.score,
+          time: moment().format('YYYY年M月D日')
+        }
+        this.comList.unshift(obj)
+        this.score = 0
+        this.comVal = ''
+        this.$local.set('ComCont', this.comList)
+      }
+    },
+    // 热门推荐初始化数据
+    HotRec () {
+      this.$http.get(this.$url + 'listHotCard03').then((res) => {
+        this.HotRecList = res.data.card[0].list
+      })
+    },
+    HotShow (hotI) {
+      this.HotNum = hotI
+    }
+  },
+  created () {
+    this.HotRec()
+    if (this.$local.obtain('city')) {
+      this.getCity = this.$local.obtain('city')
+    }
+    if (this.$local.obtain('DetailData')) {
+      this.detailCont = this.$local.obtain('DetailData')
+    }
+    if (this.$local.obtain('ComCont')) {
+      this.comList = this.$local.obtain('ComCont')
+    }
+  }
 }
 </script>
 
@@ -338,9 +381,13 @@ export default {
       background: #f6f6f6;
       p{
         text-indent: 21px;
-        font-size: 12px;
-        span{
-          color: #ff3c1b;
+        color: #dddee1;
+        a{
+          color: #495060;
+          font-size: 12px;
+          &:nth-of-type(3){
+            color: #ff3c1b;
+          }
         }
       }
     }
@@ -373,11 +420,6 @@ export default {
             color: #495060;
             margin-bottom: 23px;
           }
-          img{
-            width: 600px;
-            height: 84px;
-            display: block;
-          }
           .time{
             width: 100%;
             overflow: hidden;
@@ -398,6 +440,7 @@ export default {
                 font-size: 12px;
                 margin-left: 10px;
                 margin-top: 5px;
+                cursor: pointer;
               }
               .selection{
                 border: 1px solid #ff3c1b;
@@ -424,6 +467,11 @@ export default {
                 border-radius: 3px;
                 font-size: 12px;
                 margin-left: 12px;
+                cursor: pointer;
+              }
+              .selection{
+                border: 1px solid #ff3c1b;
+                color: #ff3c1b;
               }
               .on{
                 background: #f7f7f7;
@@ -431,17 +479,15 @@ export default {
               }
             }
           }
-          a{
-            display: inline-block;
-            button{
-              width: 152px;
-              height: 41px;
-              border-radius: 4px;
-              font-size: 16px;
-              color: white;
-              background: #ff3c1b;
-              margin: 12px 0 0 66px;
-            }
+          button{
+            width: 152px;
+            height: 41px;
+            border-radius: 4px;
+            font-size: 16px;
+            color: white;
+            background: #ff3c1b;
+            margin: 12px 0 0 66px;
+            cursor: pointer;
           }
         }
       }
@@ -491,17 +537,22 @@ export default {
         height: 2269px;
         float: left;
         background: white;
-        ul{
+        .subTitle{
           width: 100%;
           overflow: hidden;
           margin-bottom: 42px;
           li{
+            width: 88px;
             float: left;
             font-size: 16px;
-            padding: 7px 17px;
-          }
-          .selection1{
-            border-top: 3px solid #ff3c1b;
+            line-height: 38px;
+            box-sizing: border-box;
+            text-align: center;
+            cursor: pointer;
+            &.selection1{
+              color: #ff3c1b;
+              border-top: 3px solid #ff3c1b;
+            }
           }
         }
         .information{
@@ -521,14 +572,67 @@ export default {
             border-bottom: 1px dashed #ccc;
             margin-left: 30px;
           }
+          &:nth-of-type(3){
+            margin: 22px 0 25px 40px;
+          }
         }
-        .information:nth-of-type(3){
-          margin: 22px 0 25px 40px;
-        }
-        img{
+        .informationCont{
+          width: 741px;
+          height: 228px;
+          box-sizing: border-box;
+          border: 1px solid #ccc;
+          border-top: 2px solid #ccc;
           margin: 35px 0 39px 130px;
+          background: white;
+          &>div{
+            float: left;
+            font-size: 12px;
+            color: #495060;
+            &:first-of-type, &:nth-of-type(3){
+              width: 109px;
+              height: 48px;
+              line-height: 48px;
+              text-align: center;
+              background: #eee;
+              border-right: 1px solid #ccc;
+              border-bottom: 1px solid #ccc;
+            }
+            &:nth-of-type(2), &:nth-of-type(4){
+              width: 258px;
+              height: 48px;
+              line-height: 48px;
+              text-align: center;
+              border-right: 1px solid #ccc;
+              border-bottom: 1px solid #ccc;
+            }
+            &:nth-of-type(4){
+              width: 260px;
+              border-right: none;
+            }
+            &:nth-of-type(5), &:nth-of-type(7){
+              width: 109px;
+              line-height: 48px;
+              text-align: center;
+              background: #eee;
+              border-right: 1px solid #ccc;
+              height: 176px;
+            }
+            &:nth-of-type(6), &:nth-of-type(8){
+              width: 258px;
+              line-height: 48px;
+              text-align: center;
+              border-right: 1px solid #ccc;
+              height: 176px;
+            }
+            &:nth-of-type(8){
+              width: 260px;
+              border-right: none;
+              line-height: 18px;
+              padding-top: 15px;
+            }
+          }
         }
-        dl{
+        &>dl{
           width: 721px;
           margin-left: 143px;
           dt{
@@ -551,6 +655,7 @@ export default {
           }
         }
         .comments{
+          margin-top: 28px;
           width: 721px;
           margin-left: 143px;
           .stars{
@@ -567,26 +672,25 @@ export default {
             border: 1px solid #ccc;
             text-indent: 7px;
           }
-          a{
+          button{
+            width: 153px;
+            height: 42px;
+            border-radius: 5px;
+            background: #ff3c1b;
+            color: white;
+            font-size: 14px;
             margin: 20px 0 20px 20px;
-            display: inline-block;
-            button{
-              width: 153px;
-              height: 42px;
-              border-radius: 5px;
-              background: #ff3c1b;
-              color: white;
-              font-size: 14px;
-            }
+            cursor: pointer;
           }
         }
-        ul{
+        .commentCont{
           li{
             width: 847px;
             overflow: hidden;
             margin-: 20px 0 39px 0;
             p:nth-of-type(1){
               float: left;
+              padding-left: 20px;
               img{
                 width: 45px;
                 height: 45px;
@@ -603,7 +707,7 @@ export default {
               height: 87px;
               background: #f0f0f0;
               float: right;
-              span{
+              &>span{
                 display: inline-block;
                 margin: 23px 0 0 20px;
                 font-size: 14px;
@@ -613,6 +717,9 @@ export default {
                 display: flex;
                 margin: 20px;
                 font-size: 12px;
+                span{
+                  padding-left: 12px;
+                }
               }
             }
           }
@@ -621,7 +728,6 @@ export default {
       .right{
         width: 264px;
         float: right;
-
         dl{
           background: white;
           padding: 0 6px 34px 6px;
@@ -634,6 +740,7 @@ export default {
             margin-bottom: 18px;
           }
           dd{
+            cursor: pointer;
             font-size: 12px;
             line-height: 24px;
             border-bottom: 1px dashed #ccc;
@@ -660,6 +767,51 @@ export default {
         }
         dd:nth-of-type(10){
           border-bottom: 1px solid #ccc;
+        }
+      }
+    }
+  }
+</style>
+<style lang="less">
+  .step{
+    width: 600px;
+    height: 85px;
+    background: #f7f7f7;
+    box-sizing: border-box;
+    padding-top: 30px;
+    .el-steps--horizontal{
+      transform: translateX(-5%);
+      .is-horizontal{
+        .el-step__head{
+          width: 85%;
+          .el-step__line{
+            left: 120%;
+            right: -50%;
+          }
+          &.is-success{
+            color: #ff3c1b;
+            border-color: #ff3c1b;
+          }
+          &.is-process{
+            .el-step__icon{
+              border: none;
+              background: #ff3c1b;
+              .el-step__icon-inner{
+                color: white;
+              }
+            }
+          }
+        }
+        .el-step__main{
+          position: absolute;
+          right: 0;
+          top: -35%;
+          .el-step__title{
+            color: #999;
+            &.is-process{
+              color: #666;
+            }
+          }
         }
       }
     }

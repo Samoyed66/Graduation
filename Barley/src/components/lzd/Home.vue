@@ -32,7 +32,7 @@
           <router-link tag="li" to="/rock">摇滚</router-link>
         </ul>
         <!-- 轮播图 -->
-        <el-carousel :interval="5000" arrow="always" height="386px">
+        <el-carousel :interval="1500" arrow="always" height="386px">
           <el-carousel-item v-for="(bannerItem, bannerIndex) in picList" :key="bannerIndex">
             <img :src="bannerItem">
           </el-carousel-item>
@@ -101,6 +101,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'Home',
   data () {
@@ -139,6 +140,10 @@ export default {
       contNum: -1
     }
   },
+  computed: {
+    // vuex随机数
+    ...mapState(['changeRandomNum'])
+  },
   methods: {
     // 点击跳转详情页并存数据
     toDetail (val) {
@@ -147,6 +152,7 @@ export default {
       this.$local.set('DetailData', val)
       // 路由跳转到详情页不过地址后面带上对应的id值，对应的路由index文件里面要加上一个/:id
       this.$router.push({path: '/details/' + val.id})
+      window.scrollTo(0, 0)
     },
     InfoList (ListI) {
       clearTimeout(this.timer)

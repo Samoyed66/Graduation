@@ -191,6 +191,11 @@ export default {
             padding: 0 13px 0 17px;
             border-right: 1px solid #666;
           }
+          &:last-of-type{
+            a{
+              border-right: none;
+            }
+          }
         }
       }
       .picList{

@@ -3,9 +3,16 @@ import Router from 'vue-router'
 import Home from '@/components/lzd/Home'
 import Registered from '@/components/lzd/Registered'
 import Login from '@/components/lzd/Login'
+import Selection from '@/components/lzd/Selection'
+import OrderSure from '@/components/lzd/OrderSure'
+import QRpay from '@/components/lzd/QRpay'
+import OrderPay from '@/components/lzd/OrderPay'
 import List from '@/components/zb/List'
 import Details from '@/components/zb/Details'
 import Children from '@/components/fzy/Children'
+import Dance from '@/components/fzy/Dance'
+import Drama from '@/components/fzy/Drama'
+import Rock from '@/components/fzy/Rock'
 Vue.use(Router)
 var router = new Router({
   routes: [
@@ -43,7 +50,7 @@ var router = new Router({
       }
     },
     {
-      path: '/list',
+      path: '/list/:val?',
       name: 'List',
       component: List,
       meta: {
@@ -73,6 +80,83 @@ var router = new Router({
         headShow: true,
         // 设置底部是否显示
         footShow: true
+      }
+    },
+    {
+      path: '/dance',
+      name: 'Dance',
+      component: Dance,
+      meta: {
+        // 设置头部是否显示
+        headShow: true,
+        // 设置底部是否显示
+        footShow: true
+      }
+    },
+    {
+      path: '/drama',
+      name: 'Drama',
+      component: Drama,
+      meta: {
+        // 设置头部是否显示
+        headShow: true,
+        // 设置底部是否显示
+        footShow: true
+      }
+    },
+    {
+      path: '/rock',
+      name: 'Rock',
+      component: Rock,
+      meta: {
+        // 设置头部是否显示
+        headShow: true,
+        // 设置底部是否显示
+        footShow: true
+      }
+    },
+    {
+      path: '/selection',
+      name: 'Selection',
+      component: Selection,
+      meta: {
+        // 设置头部是否显示
+        headShow: true,
+        // 设置底部是否显示
+        footShow: true
+      }
+    },
+    {
+      path: '/orderSure',
+      name: 'OrderSure',
+      component: OrderSure,
+      meta: {
+        // 设置头部是否显示
+        headShow: false,
+        // 设置底部是否显示
+        footShow: false
+      }
+    },
+    {
+      path: '/orderPay',
+      name: 'OrderPay',
+      component: OrderPay,
+      meta: {
+        // 设置头部是否显示
+        headShow: false,
+        // 设置底部是否显示
+        footShow: false
+      }
+    },
+    {
+      path: '/qrpay',
+      name: 'QRpay',
+      component: QRpay,
+      meta: {
+        // 设置头部是否显示
+        headShow: false,
+        // 设置底部是否显示
+        footShow: false
       }
     }
   ]

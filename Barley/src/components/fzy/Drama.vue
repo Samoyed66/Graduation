@@ -1,6 +1,6 @@
 <template>
   <!-- 导航栏 -->
-  <div id="Navigation">
+  <div id="Drama">
     <!-- 导航 -->
     <ul class="subNav clear">
       <router-link tag="li" to="/">首页</router-link>
@@ -20,7 +20,7 @@
     <!-- 轮播图 -->
     <!-- 猜你喜欢 -->
     <div class="books">
-      <img src='@/assets/images/like.png' class="like"/>
+      <img src='@/assets/images/like-dance.png' class="like"/>
       <ul class="clear">
         <li @click="toDetail(likeItem)" v-for="(likeItem, likeIndex) in likeList" :key="likeIndex">
           <img :src="likeItem.src">
@@ -32,7 +32,7 @@
     <!-- 猜你喜欢 -->
     <!-- 精彩聚集 -->
     <div class="Gather">
-      <img src='@/assets/images/Gather.png' class="Gather1"/>
+      <img src='@/assets/images/Gather-dance.png' class="Gather1"/>
       <div class="clear">
         <div @click="toDetail(chhItem)" @mouseenter="bigInfoShow(chhIndex)" @mouseleave="bigInfoHide" class="chh" v-for="(chhItem, chhIndex) in focusing.bigPic" :key="chhIndex">
           <img :src="chhItem.src">
@@ -88,7 +88,7 @@
     <!-- 选项卡 -->
     <!-- 热门推荐 -->
     <div class="hot">
-      <img src='@/assets/images/hot.png'/>
+      <img src='@/assets/images/hot-dance.png'/>
       <div class="hotWrap clear">
         <div @click="toDetail(bigItem)" class="bigPic" @mouseenter="hotInfoShow" @mouseleave="hotInfoHide" v-for="(bigItem, bigIndex) in hotList.bigPic" :key="bigIndex">
           <img :src="bigItem.src">
@@ -122,7 +122,7 @@
     <!-- 日历插件 -->
     <!-- 合作方 -->
     <div class="cooperation">
-      <img src='@/assets/images/cooperation.png'/>
+      <img src='@/assets/images/cooperation-dance.png'/>
       <div class="picWrap clear">
         <img :src="PicItem" v-for="(PicItem, PicIndex) in conPicList" :key="PicIndex">
       </div>
@@ -133,7 +133,7 @@
 <script>
 import Calendar from 'vue-calendar-component'
 export default {
-  name: 'Children',
+  name: 'Drama',
   data () {
     return {
       /* 精彩聚焦 */
@@ -145,16 +145,16 @@ export default {
       // 热门推荐
       hotList: [],
       picList: [
-        require('@/assets/images/banner01.jpg'),
+        require('@/assets/images/banner03.jpg'),
         require('@/assets/images/banner02.jpg'),
-        require('@/assets/images/banner03.jpg')
+        require('@/assets/images/banner01.jpg')
       ],
       // 精彩聚焦大图遮罩层判断
       bigBol: -1,
       // 精彩聚焦小图遮罩层判断
       smallBol: -1,
       // 选项卡标题
-      cardTitle: ['全年龄段', '0-3岁', '3-6岁', '6-12岁'],
+      cardTitle: ['曲苑杂坛', '歌剧话剧'],
       // 选项卡切换变量
       cardNum: 0,
       // 热门推荐变量
@@ -192,13 +192,13 @@ export default {
     },
     /* 精彩聚集初始化数据 */
     focusingFn () {
-      this.$http.get(this.$url + 'childrenFocus').then((res) => {
+      this.$http.get(this.$url + 'dramaFouce').then((res) => {
         this.focusing = res.data.focus[0]
       })
     },
     /* 猜我喜欢初始化数据 */
     LikeFn () {
-      this.$http.get(this.$url + 'childrenLike').then((res) => {
+      this.$http.get(this.$url + 'dramaLike').then((res) => {
         this.likeList = res.data.like
       })
     },
@@ -224,13 +224,13 @@ export default {
     },
     // 选项卡初始化数据
     cardListFn () {
-      this.$http.get(this.$url + 'childrenCard').then((res) => {
+      this.$http.get(this.$url + 'dramaCard').then((res) => {
         this.cardList = res.data.card
       })
     },
     // 热门推荐初始化数据
     HotListFn () {
-      this.$http.get(this.$url + 'childrenHot').then((res) => {
+      this.$http.get(this.$url + 'dramaHot').then((res) => {
         this.hotList = res.data.hot[0]
       })
     },
@@ -258,7 +258,7 @@ export default {
 </script>
 
 <style scoped lang="less">
- #Navigation {
+ #Drama {
    width: 1200px;
    margin: 0 auto;
    .subNav{
@@ -277,10 +277,10 @@ export default {
          color: #fff;
          background: #ff3c1b;
        }
-     }
-     li:nth-of-type(4) {
-       color: #ffffff;
-       background: #ff3c1b;
+       &:nth-of-type(6) {
+         color: #fff;
+         background: #ff3c1b;
+       }
      }
    }
    .el-carousel{
@@ -299,8 +299,8 @@ export default {
      margin-top: 20px;
      background: #ffffff;
      .like{
-       width: 160px;
-       height: 42px;
+       width: 581px;
+       height: 51px;
        margin: 0 auto;
        padding: 15px 0 14px;
      }
@@ -347,8 +347,8 @@ export default {
      margin-top: 20px;
      .Gather1{
        margin: 0 auto;
-       width: 160px;
-       height: 37px;
+       width: 581px;
+       height: 51px;
        padding: 15px 0 14px;
      }
      &>div{
@@ -467,32 +467,28 @@ export default {
       height: 30px;
       border-bottom: 1px solid #dddee1;
       li{
-        line-height: 30px;
+        line-height: 29px;
         float: left;
         font-size: 17px;
         width: 90px;
         border: 1px solid #dddee1;
         border-bottom: none;
         text-align: center;
-        margin-right: 9px;
-        border-radius: 10px 10px 0 0;
-        color: white;
+        color: #495060;
         cursor: pointer;
+        margin-right: 10px;
+        color: white;
         &:nth-of-type(1){
-          background: #e67818;
+          background: #556fb5;
         }
         &:nth-of-type(2){
-          background: #ff467a;
-        }
-        &:nth-of-type(3){
-          background: #84b91e;
-        }
-        &:nth-of-type(4){
-          background: #36aee6;
+          background: #0068b7;
         }
         &.cardActive{
           background: white;
-          color: #000;
+          line-height: 30px;
+          border-top: 2px solid #ff3c1b;
+          color: #ff3c1b;
         }
       }
     }
@@ -559,8 +555,8 @@ export default {
      margin-bottom: 20px;
     &>img{
       margin: 0 auto;
-      width: 160px;
-      height: 37px;
+      width: 581px;
+      height: 51px;
       padding: 15px 0 14px;
     }
      .hotWrap{
@@ -694,8 +690,8 @@ export default {
      margin-bottom: 20px;
      &>img{
        margin: 0 auto;
-       width: 160px;
-       height: 37px;
+       width: 581px;
+       height: 51px;
        padding: 15px 0;
      }
      .picWrap{

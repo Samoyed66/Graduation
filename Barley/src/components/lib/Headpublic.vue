@@ -79,11 +79,33 @@
           <img src="@/assets/images/logo.png">
         </router-link>
         <!-- 城市列表 -->
-        <div class="cityList">北京 <i class="el-icon-arrow-down"></i></div>
+        <div class="cityList">
+          <span @mouseenter="changeShow" @mouseleave="changeHide">{{nowCity}}</span>
+          <i class="el-icon-arrow-down"></i>
+          <div @mouseenter="bothShow" @mouseleave="changeHide" v-show="cityOff" class="cityWrap">
+            <div class="cityArrow"></div>
+            <div class="nowCity">
+              当前城市:
+              <span>{{nowCity}}</span>
+            </div>
+            <div class="hotCity clear">
+              <p>热门城市:</p>
+              <ul class="clear">
+                <li @click="changeCityName(hotItem)" v-for="(hotItem, hotIndex) in hotCity" :key="hotIndex">{{hotItem}}</li>
+              </ul>
+            </div>
+            <div class="otherCit clear">
+              <p>其他城市:</p>
+              <ul class="clear">
+                <li @click="changeCityName(otherItem)" v-for="(otherItem, otherIndex) in otherCity" :key="otherIndex">{{otherItem}}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
         <!-- 搜索框 -->
         <div class="search clear">
-          <input type="text" placeholder="请输入演出、艺人、场馆名称...">
-          <router-link tag="button" to="/list">搜索</router-link>
+          <input type="text" placeholder="请输入演出、艺人、场馆名称..." v-model="searchVal">
+          <button @click="searchBtn">搜索</button>
         </div>
       </div>
     </header>
@@ -91,19 +113,65 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   name: 'Headpublic',
   data () {
     return {
+      searchVal: '',
       // local数据
       getListDate: [],
-      off: true
+      off: true,
+      // 热门城市
+      hotCity: ['全国', '北京', '上海', '深圳', '广州', '杭州', '天津', '重庆', '成都', '香港'],
+      // 其他城市
+      otherCity: ['上海', '北京', '深圳', '天津', '杭州', '武汉', '成都', '广州', '重庆', '西安', '南京', '苏州', '宁波', '长沙', '厦门', '郑州', '香港', '合肥', '济南', '青岛', '贵阳', '昆明', '石家庄', '无锡', '太原', '绍兴', '沈阳', '宜昌', '南昌', '常州', '包头', '哈尔滨', '南宁', '长春', '珠海', '佛山', '福州', '呼和浩特', '河源', '大连', '东莞', '海口', '南通', '廊坊', '烟台', '澳门', '黄冈', '江门', '泉州', '中山', '桂林', '惠州', '兰州', '长治', '邯郸', '嘉兴', '金华', '扬州', '台州', '泰州', '唐山', '潍坊', '遵义', '大同', '丽水', '银川', '张家口', '安庆', '德阳', '黄石', '晋中', '荆州', '马鞍山', '眉山', '绵阳', '南充', '秦皇岛', '温州', '乌鲁木齐', '芜湖', '湘潭', '新乡', '徐州', '自贡', '阿坝', '鞍山', '安顺', '保定', '昌吉', '大理', '广安', '湖州', '济宁', '荆门', '九江', '柳州', '洛阳', '三门峡', '三亚', '汕头', '商丘', '韶关', '遂宁', '台北', '泰安', '西宁', '盐城', '运城', '湛江', '漳州', '桂林', '肇庆', '淄博', '境外'
+      ],
+      // 城市列表显示隐藏
+      cityOff: false,
+      timer: null,
+      nowCity: '北京'
     }
   },
   methods: {
+    // 跳转列表页
+    searchBtn () {
+      // 路由跳转到详情页不过地址后面带上对应的id值，对应的路由index文件里面要加上一个/:id
+      this.$router.push({path: '/list/' + this.searchVal})
+    },
+    // vuex随机数修改
+    ...mapMutations(['changeNum']),
     outerLocal () {
       this.$local.remove('loginUser')
       this.off = true
+    },
+    // 划入显示
+    changeShow () {
+      this.cityOff = true
+    },
+    // 划出延迟隐藏
+    changeHide () {
+      var _this = this
+      this.timer = setTimeout(() => {
+        _this.cityOff = false
+      }, 200)
+    },
+    // 划出取消定时器
+    bothShow () {
+      clearTimeout(this.timer)
+    },
+    // 点击切换城市名
+    changeCityName (val) {
+      this.nowCity = val
+      this.$local.set('city', val)
+      this.cityOff = false
+      this.changeNum(Math.round(Math.random() * 2))
+    },
+    // 初始化验证
+    getCity () {
+      if (this.$local.obtain('city')) {
+        this.nowCity = this.$local.obtain('city')
+      }
     }
   },
   watch: {
@@ -112,7 +180,18 @@ export default {
         this.getListDate = this.$local.obtain('loginUser')
         this.off = false
       }
+      if (to.path.substring(1, 5) === 'list') {
+        this.searchVal = to.params.val
+      } else {
+        this.searchVal = ''
+      }
     }
+  },
+  created () {
+    if (this.$route.params.val) {
+      this.searchVal = this.$route.params.val
+    }
+    this.getCity()
   }
 }
 </script>
@@ -166,6 +245,7 @@ export default {
           height: 0;
           position: absolute;
           top: 40px;
+          z-index: 5;
           background: white;
           border-radius: 3px;
           left: -20px;
@@ -331,13 +411,102 @@ export default {
         height: 59px;
       }
       .cityList{
+        position: relative;
         padding: 0 117px 0 18px;
         float: left;
         height: 19px;
         line-height: 19px;
         font-size: 15px;
         color: #333;
-        cursor: pointer;
+        &>span{
+          display: inline-block;
+          width: 45px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          cursor: pointer;
+        }
+        .cityWrap{
+          width: 607px;
+          padding: 21px;
+          border: 1px solid #f4f4f4;
+          background: white;
+          position: absolute;
+          left: -115px;
+          top: 27px;
+          z-index: 4;
+          .cityArrow{
+            width: 14px;
+            height: 14px;
+            border-left: 1px solid #f4f4f4;
+            border-top: 1px solid #f4f4f4;
+            transform: rotate(45deg);
+            position: absolute;
+            background: white;
+            top: -7px;
+            left: 138px;
+          }
+          .nowCity{
+            height: 25px;
+            line-height: 25px;
+            font-size: 16px;
+            color: #111;
+            span{
+              display: inline-block;
+              margin-left: 32px;
+              height: 100%;
+              padding: 0 10px;
+              background: #fff4f8;
+              color: #ff1296;
+            }
+          }
+          .hotCity{
+            height: 56px;
+            line-height: 56px;
+            padding-right: 19px;
+            font-size: 16px;
+            color: #111;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 13px;
+            p{
+              float: left;
+            }
+            ul{
+              float: left;
+              padding-left: 24px;
+              li{
+                padding: 0 8px;
+                float: left;
+                cursor: pointer;
+                &:hover{
+                  color: #ff3c1b;
+                }
+              }
+            }
+          }
+          .otherCit{
+            line-height: 29px;
+            font-size: 16px;
+            color: #111;
+            p{
+              float: left;
+              height: 348px;
+            }
+            ul{
+              width: 514px;
+              padding-left: 24px;
+              float: left;
+              li{
+                padding: 0 8px;
+                float: left;
+                cursor: pointer;
+                &:hover{
+                  color: #ff3c1b;
+                }
+              }
+            }
+          }
+        }
       }
       .search{
         width: 569px;

@@ -1,6 +1,8 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+// 二维码生成
+import QRCode from 'qrcode2'
 import App from './App'
 import router from './router'
 // 饿了么ui库
@@ -15,6 +17,14 @@ import store from './store'
 import Local from '@/lib/local'
 // 返回顶部效果js插件
 import Back from '@/lib/backUp'
+Vue.prototype.$QRCodeSC = (url) => {
+  let qrcode = new QRCode('qrcode', { // qrcode  html为标签id
+    width: 152, // 长度
+    height: 152, // 宽度
+    text: url // 内容
+  })
+  return qrcode
+}
 Vue.use(vueAxios, axios)
 Vue.use(ElementUI)
 Vue.use(Local)
