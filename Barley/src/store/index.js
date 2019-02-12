@@ -7,7 +7,8 @@ var store = new Vuex.Store({
     detailTime: '',
     detailPrice: 0,
     seatInfo: [],
-    allPrice: 0
+    allPrice: 0,
+    orderNum: 0
   },
   mutations: {
     changeNum (state, val) {
@@ -24,6 +25,9 @@ var store = new Vuex.Store({
     },
     toAllPrice (state, allPriceVal) {
       state.allPrice = allPriceVal
+    },
+    toOrderNum (state, payVal) {
+      state.orderNum = payVal
     }
   }
 })

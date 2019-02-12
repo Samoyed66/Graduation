@@ -121,6 +121,55 @@
         <div class="orderTitle">
           <span>我要开发票</span>
         </div>
+        <div class="invoice">
+          <ul class="invoiceTitle clear">
+            <li @click="changeInvoiceClass(invoiceIndex)" :class="{'invoiceActive': invoiceNum === invoiceIndex}" v-for="(invoiceItem, invoiceIndex) in invoiceList" :key="invoiceIndex">{{invoiceItem}}</li>
+          </ul>
+          <div class="invoiceWrap">
+            <div class="invoiceBox clear" :style="{'transform': 'translateX(-' + invoiceNum * 1158 + 'px)'}">
+              <div class="invoiceCont">
+                <div>
+                  公司抬头:
+                  <input type="text" placeholder="请输入公司抬头">
+                </div>
+                <div>
+                  公司税号:
+                  <input type="text" placeholder="请输入公司税号">
+                </div>
+                <button>确认发票信息</button>
+              </div>
+              <div class="invoiceCont">
+                <div>
+                  个人抬头:
+                  <input type="text" placeholder="请输入个人抬头">
+                </div>
+                <button>确认发票信息</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="insurance">
+          <p>
+            <input id="insuranceCheck" type="checkbox" v-model="insuranceVal">
+            <label for="insuranceCheck">购买“安心订票保险”，本单保费金额: 20.00元</label>
+          </p>
+          <p>查看 保险服务说明 和 《安心订票保险条款》</p>
+          <p>购买保险，请填写真实姓名</p>
+          <p>商品金额: <span>¥{{allPrice}}</span></p>
+          <p>商品保险: +<span>¥{{changeCheck}}</span></p>
+        </div>
+        <div class="orderAll">
+          <p>
+            <span>待支付总额: </span>
+            <span>{{allPrice + changeCheck}}</span>
+          </p>
+          <p>
+            <input id="orderCheck" type="checkbox" v-model="orderVal">
+            <label for="orderCheck"><span>我已经阅读同意</span> 《订购服务条款》 《退换货约定》 《退款约定》</label>
+          </p>
+          <p>同意“票品为不记名凭证，请您妥善保管，遗失不补”</p>
+          <button @click="toOrderPay" :style="{'background': orderVal ? '#ff3c1b':'#c3c3c3'}">同意以上协议并提交订单</button>
+        </div>
       </div>
     </div>
     <!-- 底部 -->
@@ -166,7 +215,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'OrderSure',
   data () {
@@ -174,18 +223,40 @@ export default {
       off: true,
       // local数据
       getListDate: [],
-      detailCont: {}
+      detailCont: {},
+      invoiceList: ['公司', '个人'],
+      invoiceNum: 0,
+      insuranceVal: true,
+      orderVal: false
     }
   },
   computed: {
     // vuex选定时间
-    ...mapState(['seatInfo', 'allPrice', 'detailPrice'])
+    ...mapState(['seatInfo', 'allPrice', 'detailPrice']),
+    changeCheck () {
+      if (this.insuranceVal) {
+        return 20
+      } else {
+        return 0
+      }
+    }
   },
   methods: {
+    // vuex
+    ...mapMutations(['toSeatInfo', 'toAllPrice']),
     outerLocal () {
       this.getListDate = []
       this.$local.remove('loginUser')
       this.off = true
+    },
+    changeInvoiceClass (invoiceI) {
+      this.invoiceNum = invoiceI
+    },
+    toOrderPay () {
+      if (this.orderVal) {
+        this.toAllPrice(this.allPrice + this.changeCheck)
+        this.$router.push({path: '/orderPay'})
+      }
     }
   },
   created () {
@@ -533,6 +604,122 @@ export default {
                 }
               }
             }
+          }
+        }
+        .invoice{
+          width: 100%;
+          padding-bottom: 20px;
+          border-bottom: 1px solid #c3c3c3;
+          .invoiceTitle{
+            height: 35px;
+            border-bottom: 1px solid #dddee1;
+            li{
+              width: 60px;
+              text-align: center;
+              line-height: 35px;
+              float: left;
+              cursor: pointer;
+              &.invoiceActive{
+                line-height: 34px;
+                border-bottom: 2px solid #ff3c1b;
+                color: #ff3c1b;
+              }
+            }
+          }
+          .invoiceWrap{
+            width: 1158px;
+            height: 199px;
+            border: 1px solid #dddee1;
+            border-top: none;
+            overflow: hidden;
+            .invoiceBox{
+              width: 2316px;
+              transition: .3s;
+              .invoiceCont{
+                width: 1158px;
+                height: 199px;
+                box-sizing: border-box;
+                padding: 15px 0 0 15px;
+                float: left;
+                &>div{
+                  height: 50px;
+                  line-height: 50px;
+                  font-size: 12px;
+                  color: #495060;
+                  input{
+                    width: 298px;
+                    height: 30px;
+                    border: 1px solid #c3c3c3;
+                    border-radius: 3px;
+                    text-indent: 4px;
+                    &::-webkit-input-placeholder{
+                      color: #757575;
+                    }
+                    &::-moz-input-placeholder{/* Firefox 19+ */
+                      color: #757575;
+                    }
+                    &:-moz-input-placeholder{/* Firefox 4 to 18 */
+                      color: #757575;
+                    }
+                    &:-ms-input-placeholder{
+                      color: #757575;
+                    }
+                  }
+                }
+                button{
+                  width: 104px;
+                  height: 32px;
+                  background: #ff3c1b;
+                  color: white;
+                  border-radius: 5px;
+                  font-size: 12px;
+                  margin: 20px 0 0 30px;
+                  cursor: pointer;
+                }
+              }
+            }
+          }
+        }
+        .insurance{
+          width: 100%;
+          height: 119px;
+          padding: 20px 0 21px;
+          text-align: right;
+          border-bottom: 1px dashed #c3c3c3;
+          p{
+            font-size: 12px;
+            color: #1b1b1b;
+            height: 23px;
+            line-height: 23px;
+            span{
+              color: #ff3c1b;
+            }
+          }
+        }
+        .orderAll{
+          text-align: right;
+          padding: 20px 0 70px;
+          p{
+            font-size: 12px;
+            color: #495060;
+            height: 23px;
+            line-height: 23px;
+            span{
+              font-weight: bold;
+            }
+            &:first-of-type{
+              span:last-of-type{
+                color: #ff3c1b;
+              }
+            }
+          }
+          button{
+            width: 164px;
+            height: 32px;
+            border-radius: 5px;
+            margin-top: 21px;
+            color: white;
+            font-size: 12px;
           }
         }
       }

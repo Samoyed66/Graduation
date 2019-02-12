@@ -5,6 +5,8 @@ import Registered from '@/components/lzd/Registered'
 import Login from '@/components/lzd/Login'
 import Selection from '@/components/lzd/Selection'
 import OrderSure from '@/components/lzd/OrderSure'
+import QRpay from '@/components/lzd/QRpay'
+import OrderPay from '@/components/lzd/OrderPay'
 import List from '@/components/zb/List'
 import Details from '@/components/zb/Details'
 import Children from '@/components/fzy/Children'
@@ -116,6 +118,28 @@ var router = new Router({
       path: '/orderSure',
       name: 'OrderSure',
       component: OrderSure,
+      meta: {
+        // 设置头部是否显示
+        headShow: false,
+        // 设置底部是否显示
+        footShow: false
+      }
+    },
+    {
+      path: '/orderPay',
+      name: 'OrderPay',
+      component: OrderPay,
+      meta: {
+        // 设置头部是否显示
+        headShow: false,
+        // 设置底部是否显示
+        footShow: false
+      }
+    },
+    {
+      path: '/qrpay',
+      name: 'QRpay',
+      component: QRpay,
       meta: {
         // 设置头部是否显示
         headShow: false,
