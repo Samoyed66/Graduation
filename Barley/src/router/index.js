@@ -14,6 +14,7 @@ import mine from '@/components/cpf/Mine'
 import Dance from '@/components/fzy/Dance'
 import Drama from '@/components/fzy/Drama'
 import Rock from '@/components/fzy/Rock'
+import Sports from '@/components/fzy/Sports'
 import oredr from '@/components/cpf/Oredr'
 import message from '@/components/cpf/Message'
 import ticket from '@/components/cpf/Ticket'
@@ -112,6 +113,17 @@ var router = new Router({
       path: '/rock',
       name: 'Rock',
       component: Rock,
+      meta: {
+        // 设置头部是否显示
+        headShow: true,
+        // 设置底部是否显示
+        footShow: true
+      }
+    },
+    {
+      path: '/sports',
+      name: 'Sports',
+      component: Sports,
       meta: {
         // 设置头部是否显示
         headShow: true,

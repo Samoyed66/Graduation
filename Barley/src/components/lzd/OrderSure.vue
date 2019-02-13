@@ -243,7 +243,7 @@ export default {
   },
   methods: {
     // vuex
-    ...mapMutations(['toAllPrice']),
+    ...mapMutations(['toSeatInfo', 'toAllPrice']),
     outerLocal () {
       this.getListDate = []
       this.$local.remove('loginUser')

@@ -82,83 +82,166 @@
         <ul class="subTitle clear">
           <li @click="changeTitleClass(subIndex)" :class="{'selection1': cardTitleNum === subIndex}" v-for="(subItem, subIndex) in cardTitle" :key="subIndex">{{subItem}}</li>
         </ul>
-        <div class="information">
-          <span>基本信息</span>
-          <strong></strong>
-        </div>
-        <div class="informationCont clear">
-          <div>演出时间</div>
-          <div>{{detailCont.time}}</div>
-          <div>演出场馆</div>
-          <div>{{detailCont.city}} 音乐厅</div>
-          <div>演出时间</div>
-          <div>{{detailCont.time}}</div>
-          <div>演出场馆</div>
-          <div>
-            <p>{{detailCont.city}} 音乐厅</p>
-            <p>{{detailCont.city}} 音乐厅</p>
-            <p>{{detailCont.city}} 音乐厅</p>
-            <p>{{detailCont.city}} 音乐厅</p>
-            <p>{{detailCont.city}} 音乐厅</p>
-            <p>{{detailCont.city}} 音乐厅</p>
-          </div>
-        </div>
-        <div class="information">
-          <span>项目介绍</span>
-          <strong></strong>
-        </div>
-        <dl>
-          <dt>英文站入口</dt>
-          <dd>英文站入口 hrt//sadisdjsacdskjcjckdsvbsv</dd>
-          <dt>演出介绍</dt>
-          <dd>世界经典原版音乐剧《猫》</dd>
-          <dd>猫的足迹</dd>
-          <dd>{{detailCont.cparagraph | firstPage}}</dd>
-          <dd>
-            <img :src="detailCont.src">
-          </dd>
-          <dd>{{detailCont.cparagraph | nextPage}}</dd>
-        </dl>
-        <div class="information">
-          <span>写剧评</span>
-          <strong></strong>
-        </div>
-        <div class="comments">
-          <div class="stars">
-            打个分吧:
-            <el-rate
-              v-model="score"
-              show-score
-              :colors="['#e9e9e9', '#f90', '#ff3c1b']"
-              text-color="#ff3c1b"
-              score-template="{value}">
-            </el-rate>
-          </div>
-          <textarea v-model="comVal" rows="8" cols="40" maxlength="1000" placeholder="写个评论吧10-1000字"></textarea>
-          <button @click="sendCom">评论</button>
-        </div>
-        <ul class="commentCont">
-          <li v-for="(comItem, comIndex) in comList" :key="comIndex">
-            <p>
-              <img :src="detailCont.src">
-              <span>{{comIndex + 12}}</span>
-            </p>
-            <p>
-              <span>{{comItem.title}}</span>
-              <strong>
+        <div class="detailsCardWrap clear" :style="{'transform': 'translateX(-' + cardTitleNum * 915 + 'px)'}">
+          <div class="detailsCardCont">
+            <div class="information">
+              <span>基本信息</span>
+              <strong></strong>
+            </div>
+            <div class="informationCont clear">
+              <div>演出时间</div>
+              <div>{{detailCont.time}}</div>
+              <div>演出场馆</div>
+              <div>{{detailCont.city}} 音乐厅</div>
+              <div>演出时间</div>
+              <div>{{detailCont.time}}</div>
+              <div>演出场馆</div>
+              <div>
+                <p>{{detailCont.city}} 音乐厅</p>
+                <p>{{detailCont.city}} 音乐厅</p>
+                <p>{{detailCont.city}} 音乐厅</p>
+                <p>{{detailCont.city}} 音乐厅</p>
+                <p>{{detailCont.city}} 音乐厅</p>
+                <p>{{detailCont.city}} 音乐厅</p>
+              </div>
+            </div>
+            <div class="information">
+              <span>项目介绍</span>
+              <strong></strong>
+            </div>
+            <dl>
+              <dt>英文站入口</dt>
+              <dd>英文站入口 hrt//sadisdjsacdskjcjckdsvbsv</dd>
+              <dt>演出介绍</dt>
+              <dd>世界经典原版音乐剧《猫》</dd>
+              <dd>猫的足迹</dd>
+              <dd>{{detailCont.cparagraph | firstPage}}</dd>
+              <dd>
+                <img :src="detailCont.src">
+              </dd>
+              <dd>{{detailCont.cparagraph | nextPage}}</dd>
+            </dl>
+            <div class="comments">
+              <div class="stars">
+                打个分吧:
                 <el-rate
-                  v-model="comItem.num"
-                  disabled
+                  v-model="score"
                   show-score
                   :colors="['#e9e9e9', '#f90', '#ff3c1b']"
                   text-color="#ff3c1b"
                   score-template="{value}">
                 </el-rate>
-                <span>{{comItem.time}}</span>
-              </strong>
-            </p>
-          </li>
-        </ul>
+              </div>
+              <textarea v-model="comVal" rows="8" cols="40" maxlength="1000" placeholder="写个评论吧10-1000字"></textarea>
+              <button @click="sendCom">评论</button>
+            </div>
+            <ul class="commentCont">
+              <li v-for="(comItem, comIndex) in comList" :key="comIndex">
+                <p>
+                  <img :src="detailCont.src">
+                  <span>{{comIndex + 12}}</span>
+                </p>
+                <p>
+                  <span>{{comItem.title}}</span>
+                  <strong>
+                    <el-rate
+                      v-model="comItem.num"
+                      disabled
+                      show-score
+                      :colors="['#e9e9e9', '#f90', '#ff3c1b']"
+                      text-color="#ff3c1b"
+                      score-template="{value}">
+                    </el-rate>
+                    <span>{{comItem.time}}</span>
+                  </strong>
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class="detailsCardCont">
+            <div class="information">
+              <span>写剧评</span>
+              <strong></strong>
+            </div>
+            <div class="comments">
+              <div class="stars">
+                打个分吧:
+                <el-rate
+                  v-model="score"
+                  show-score
+                  :colors="['#e9e9e9', '#f90', '#ff3c1b']"
+                  text-color="#ff3c1b"
+                  score-template="{value}">
+                </el-rate>
+              </div>
+              <textarea v-model="comVal" rows="8" cols="40" maxlength="1000" placeholder="写个评论吧10-1000字"></textarea>
+              <button @click="sendCom">评论</button>
+            </div>
+            <ul class="commentCont">
+              <li v-for="(comItem, comIndex) in comList" :key="comIndex">
+                <p>
+                  <img :src="detailCont.src">
+                  <span>{{comIndex + 12}}</span>
+                </p>
+                <p>
+                  <span>{{comItem.title}}</span>
+                  <strong>
+                    <el-rate
+                      v-model="comItem.num"
+                      disabled
+                      show-score
+                      :colors="['#e9e9e9', '#f90', '#ff3c1b']"
+                      text-color="#ff3c1b"
+                      score-template="{value}">
+                    </el-rate>
+                    <span>{{comItem.time}}</span>
+                  </strong>
+                </p>
+              </li>
+            </ul>
+          </div>
+          <div class="detailsCardCont">
+            <div class="information">
+              <span>基本信息</span>
+              <strong></strong>
+            </div>
+            <div class="informationCont clear">
+              <div>演出时间</div>
+              <div>{{detailCont.time}}</div>
+              <div>演出场馆</div>
+              <div>{{detailCont.city}} 音乐厅</div>
+              <div>演出时间</div>
+              <div>{{detailCont.time}}</div>
+              <div>演出场馆</div>
+              <div>
+                <p>{{detailCont.city}} 音乐厅</p>
+                <p>{{detailCont.city}} 音乐厅</p>
+                <p>{{detailCont.city}} 音乐厅</p>
+                <p>{{detailCont.city}} 音乐厅</p>
+                <p>{{detailCont.city}} 音乐厅</p>
+                <p>{{detailCont.city}} 音乐厅</p>
+              </div>
+            </div>
+          </div>
+          <div class="detailsCardCont">
+            <div class="information">
+              <span>项目介绍</span>
+              <strong></strong>
+            </div>
+            <dl>
+              <dt>英文站入口</dt>
+              <dd>英文站入口 hrt//sadisdjsacdskjcjckdsvbsv</dd>
+              <dt>演出介绍</dt>
+              <dd>世界经典原版音乐剧《猫》</dd>
+              <dd>猫的足迹</dd>
+              <dd>{{detailCont.cparagraph | firstPage}}</dd>
+              <dd>
+                <img :src="detailCont.src">
+              </dd>
+              <dd>{{detailCont.cparagraph | nextPage}}</dd>
+            </dl>
+          </div>
+        </div>
       </div>
       <div class="right">
         <dl>
@@ -534,9 +617,10 @@ export default {
       overflow: hidden;
       .left{
         width: 915px;
-        height: 2269px;
+        padding-bottom: 20px;
         float: left;
         background: white;
+        overflow: hidden;
         .subTitle{
           width: 100%;
           overflow: hidden;
@@ -555,170 +639,178 @@ export default {
             }
           }
         }
-        .information{
-          width: 899px;
-          height: 27px;
-          line-height: 27px;
-          border-left: 2px solid #ff3c1b;
-          margin-left: 30px;
-          span{
-            display: inline-block;
-            margin-left: 9px;
-            font-size: 18px;
-          }
-          strong{
-            width: 765px;
-            display: inline-block;
-            border-bottom: 1px dashed #ccc;
-            margin-left: 30px;
-          }
-          &:nth-of-type(3){
-            margin: 22px 0 25px 40px;
-          }
-        }
-        .informationCont{
-          width: 741px;
-          height: 228px;
-          box-sizing: border-box;
-          border: 1px solid #ccc;
-          border-top: 2px solid #ccc;
-          margin: 35px 0 39px 130px;
-          background: white;
-          &>div{
+        .detailsCardWrap{
+          width: 3660px;
+          transition: .3s;
+          .detailsCardCont{
             float: left;
-            font-size: 12px;
-            color: #495060;
-            &:first-of-type, &:nth-of-type(3){
-              width: 109px;
-              height: 48px;
-              line-height: 48px;
-              text-align: center;
-              background: #eee;
-              border-right: 1px solid #ccc;
-              border-bottom: 1px solid #ccc;
-            }
-            &:nth-of-type(2), &:nth-of-type(4){
-              width: 258px;
-              height: 48px;
-              line-height: 48px;
-              text-align: center;
-              border-right: 1px solid #ccc;
-              border-bottom: 1px solid #ccc;
-            }
-            &:nth-of-type(4){
-              width: 260px;
-              border-right: none;
-            }
-            &:nth-of-type(5), &:nth-of-type(7){
-              width: 109px;
-              line-height: 48px;
-              text-align: center;
-              background: #eee;
-              border-right: 1px solid #ccc;
-              height: 176px;
-            }
-            &:nth-of-type(6), &:nth-of-type(8){
-              width: 258px;
-              line-height: 48px;
-              text-align: center;
-              border-right: 1px solid #ccc;
-              height: 176px;
-            }
-            &:nth-of-type(8){
-              width: 260px;
-              border-right: none;
-              line-height: 18px;
-              padding-top: 15px;
-            }
-          }
-        }
-        &>dl{
-          width: 721px;
-          margin-left: 143px;
-          dt{
-            width: 721px;
-            height: 41px;
-            line-height: 41px;
-            background: #eee;
-            text-indent: 8px;
-            margin: 22px 0;
-          }
-          dd{
-            width: 721px;
-            font-size: 12px;
-            line-height: 22px;
-            img{
-              width: 277px;
-              height: 372px;
-              margin:0 0 9px 230px;
-            }
-          }
-        }
-        .comments{
-          margin-top: 28px;
-          width: 721px;
-          margin-left: 143px;
-          .stars{
-            display: flex;
-            margin-bottom: 9px;
-            span{
-              display: inline-block;
-              margin-right: 8px;
-            }
-          }
-          textarea{
-            width: 741px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            text-indent: 7px;
-          }
-          button{
-            width: 153px;
-            height: 42px;
-            border-radius: 5px;
-            background: #ff3c1b;
-            color: white;
-            font-size: 14px;
-            margin: 20px 0 20px 20px;
-            cursor: pointer;
-          }
-        }
-        .commentCont{
-          li{
-            width: 847px;
-            overflow: hidden;
-            margin-: 20px 0 39px 0;
-            p:nth-of-type(1){
-              float: left;
-              padding-left: 20px;
-              img{
-                width: 45px;
-                height: 45px;
-                margin: 0;
-              }
+            width: 915px;
+            .information{
+              width: 899px;
+              height: 27px;
+              line-height: 27px;
+              border-left: 2px solid #ff3c1b;
+              margin-left: 30px;
               span{
                 display: inline-block;
-                margin-left: 13px;
-                font-size: 12px;
-              }
-            }
-            p:nth-of-type(2){
-              width: 742px;
-              height: 87px;
-              background: #f0f0f0;
-              float: right;
-              &>span{
-                display: inline-block;
-                margin: 23px 0 0 20px;
-                font-size: 14px;
+                margin-left: 9px;
+                font-size: 18px;
               }
               strong{
+                width: 765px;
                 display: inline-block;
-                display: flex;
-                margin: 20px;
+                border-bottom: 1px dashed #ccc;
+                margin-left: 30px;
+              }
+              &:nth-of-type(3){
+                margin: 22px 0 25px 40px;
+              }
+            }
+            .informationCont{
+              width: 741px;
+              height: 228px;
+              box-sizing: border-box;
+              border: 1px solid #ccc;
+              border-top: 2px solid #ccc;
+              margin: 35px 0 39px 130px;
+              background: white;
+              &>div{
+                float: left;
                 font-size: 12px;
+                color: #495060;
+                &:first-of-type, &:nth-of-type(3){
+                  width: 109px;
+                  height: 48px;
+                  line-height: 48px;
+                  text-align: center;
+                  background: #eee;
+                  border-right: 1px solid #ccc;
+                  border-bottom: 1px solid #ccc;
+                }
+                &:nth-of-type(2), &:nth-of-type(4){
+                  width: 258px;
+                  height: 48px;
+                  line-height: 48px;
+                  text-align: center;
+                  border-right: 1px solid #ccc;
+                  border-bottom: 1px solid #ccc;
+                }
+                &:nth-of-type(4){
+                  width: 260px;
+                  border-right: none;
+                }
+                &:nth-of-type(5), &:nth-of-type(7){
+                  width: 109px;
+                  line-height: 48px;
+                  text-align: center;
+                  background: #eee;
+                  border-right: 1px solid #ccc;
+                  height: 176px;
+                }
+                &:nth-of-type(6), &:nth-of-type(8){
+                  width: 258px;
+                  line-height: 48px;
+                  text-align: center;
+                  border-right: 1px solid #ccc;
+                  height: 176px;
+                }
+                &:nth-of-type(8){
+                  width: 260px;
+                  border-right: none;
+                  line-height: 18px;
+                  padding-top: 15px;
+                }
+              }
+            }
+            &>dl{
+              width: 721px;
+              margin-left: 143px;
+              dt{
+                width: 721px;
+                height: 41px;
+                line-height: 41px;
+                background: #eee;
+                text-indent: 8px;
+                margin: 22px 0;
+              }
+              dd{
+                width: 721px;
+                font-size: 12px;
+                line-height: 22px;
+                img{
+                  width: 277px;
+                  height: 372px;
+                  margin:0 0 9px 230px;
+                }
+              }
+            }
+            .comments{
+              margin-top: 28px;
+              width: 721px;
+              margin-left: 143px;
+              .stars{
+                display: flex;
+                margin-bottom: 9px;
                 span{
-                  padding-left: 12px;
+                  display: inline-block;
+                  margin-right: 8px;
+                }
+              }
+              textarea{
+                width: 741px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                text-indent: 7px;
+              }
+              button{
+                width: 153px;
+                height: 42px;
+                border-radius: 5px;
+                background: #ff3c1b;
+                color: white;
+                font-size: 14px;
+                margin: 20px 0 20px 20px;
+                cursor: pointer;
+              }
+            }
+            .commentCont{
+              li{
+                width: 847px;
+                overflow: hidden;
+                margin: 20px 0 39px 0;
+                p:nth-of-type(1){
+                  float: left;
+                  padding-left: 20px;
+                  img{
+                    width: 45px;
+                    height: 45px;
+                    margin: 0;
+                  }
+                  span{
+                    display: inline-block;
+                    margin-left: 13px;
+                    font-size: 12px;
+                  }
+                }
+                p:nth-of-type(2){
+                  width: 742px;
+                  height: 87px;
+                  background: #f0f0f0;
+                  float: right;
+                  &>span{
+                    display: inline-block;
+                    margin: 23px 0 0 20px;
+                    font-size: 14px;
+                  }
+                  strong{
+                    display: inline-block;
+                    display: flex;
+                    margin: 20px;
+                    font-size: 12px;
+                    span{
+                      padding-left: 12px;
+                    }
+                  }
                 }
               }
             }
