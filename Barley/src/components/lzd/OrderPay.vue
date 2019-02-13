@@ -447,6 +447,9 @@ export default {
              &>p{
                width: 100%;
                height: 50px;
+               line-height: 50px;
+               color: white;
+               font-size: 18px;
                position: absolute;
                top: 0;
                left: 0;
@@ -540,12 +543,13 @@ export default {
          font-size: 12px;
          border-radius: 5px;
          margin-bottom: 50px;
+         cursor: pointer;
        }
      }
    }
    // 底部
    .footer{
-     padding-bottom: 5px;
+     padding-bottom: 355px;
      .wrap{
        width: 1000px;
        margin: 0 auto;
