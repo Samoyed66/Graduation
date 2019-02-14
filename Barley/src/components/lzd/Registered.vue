@@ -127,7 +127,7 @@ export default {
       // 定时器对象
       timer: null,
       // local数据
-      getListDate: [],
+      getListDate: '',
       newArr: []
     }
   },

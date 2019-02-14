@@ -424,7 +424,7 @@ export default {
    }
    // 底部
    .footer{
-     padding-bottom: 5px;
+     padding-bottom: 355px;
      .wrap{
        width: 1000px;
        margin: 0 auto;

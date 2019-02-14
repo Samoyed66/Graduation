@@ -166,17 +166,33 @@ export default {
         require('@/assets/images/weixin.jpg'),
         require('@/assets/images/alipay.jpg')
       ],
-      paymentNum: 0
+      paymentNum: 0,
+      // 订单local数据
+      getOrderDate: ''
     }
   },
   computed: {
     // vuex选定时间
-    ...mapState(['allPrice'])
+    ...mapState(['allPrice', 'detailTime', 'seatInfo', 'detailPrice'])
   },
   methods: {
     // vuex
     ...mapMutations(['toOrderNum']),
     toQRpay () {
+      var orderObj = {
+        orderNum: this.orderNum,
+        time: this.detailTime,
+        title: this.detailCont.picTitle,
+        num: this.seatInfo.length,
+        price: this.detailPrice,
+        allPrice: this.allPrice
+      }
+      var orderStr = JSON.stringify(orderObj)
+      if (this.$local.obtain('orderInfo')) {
+        this.$local.set('orderInfo', '[' + this.getOrderDate.substring(1, this.getOrderDate.length - 1) + ',' + orderStr + ']')
+      } else {
+        this.$local.set('orderInfo', '[' + orderStr + ']')
+      }
       this.toOrderNum(this.orderNum)
       this.$router.push({path: '/qrpay'})
     },
@@ -203,6 +219,9 @@ export default {
     }
     if (this.$local.obtain('DetailData')) {
       this.detailCont = this.$local.obtain('DetailData')
+    }
+    if (this.$local.obtain('orderInfo')) {
+      this.getOrderDate = this.$local.obtain('orderInfo')
     }
   }
 }
@@ -447,6 +466,9 @@ export default {
              &>p{
                width: 100%;
                height: 50px;
+               line-height: 50px;
+               color: white;
+               font-size: 18px;
                position: absolute;
                top: 0;
                left: 0;
@@ -540,12 +562,13 @@ export default {
          font-size: 12px;
          border-radius: 5px;
          margin-bottom: 50px;
+         cursor: pointer;
        }
      }
    }
    // 底部
    .footer{
-     padding-bottom: 5px;
+     padding-bottom: 355px;
      .wrap{
        width: 1000px;
        margin: 0 auto;
