@@ -18,10 +18,14 @@
         </div>
         <!-- 我的大麦 -->
         <div class="myMai">
-          <a href="javascript:;">我的大麦 <i class="el-icon-arrow-down"></i></a>
+          <router-link to="/mine">我的大麦 <i class="el-icon-arrow-down"></i></router-link>
           <ul class="clear mineInfo">
-            <li>个人信息</li>
-            <li>订单管理</li>
+            <li>
+              <router-link to="/mine/message">个人信息</router-link>
+            </li>
+            <li>
+              <router-link to="/mine">订单管理</router-link>
+            </li>
           </ul>
         </div>
         <!-- 右侧列表 -->
@@ -195,6 +199,7 @@ export default {
       }
       this.toOrderNum(this.orderNum)
       this.$router.push({path: '/qrpay'})
+      window.scrollTo(0, 0)
     },
     outerLocal () {
       this.getListDate = []

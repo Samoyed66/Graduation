@@ -161,7 +161,11 @@ export default {
           pwd: this.PwdVal
         }
         this.$local.set('loginUser', loginData)
-        this.$router.push('/')
+        if (this.$route.query.a) {
+          this.$router.push('/' + this.$route.query.a)
+        } else {
+          this.$router.push('/') // 跳转到首页
+        }
       } else {
         this.$alert('当前手机号或密码不正确！', '提示', {
           confirmButtonText: '确定',
@@ -239,7 +243,11 @@ export default {
           num: this.threeNumVal
         }
         this.$local.set('loginUser', loginData)
-        this.$router.push('/')
+        if (this.$route.query.a) {
+          this.$router.push('/' + this.$route.query.a)
+        } else {
+          this.$router.push('/') // 跳转到首页
+        }
       } else {
         this.$alert('当前信息填写不正确！', '提示', {
           confirmButtonText: '确定',

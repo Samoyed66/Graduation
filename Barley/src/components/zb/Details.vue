@@ -405,6 +405,7 @@ export default {
         this.toTime(this.perforTime[this.perforTimeNum])
         this.toPrice(parseInt(this.priceList[this.priceNum]))
         this.$router.push({path: '/selection'})
+        window.scrollTo(0, 0)
       }
     },
     changeTitleClass (TitleI) {
@@ -698,6 +699,9 @@ export default {
                 &:nth-of-type(4){
                   width: 260px;
                   border-right: none;
+                  white-space: nowrap;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
                 }
                 &:nth-of-type(5), &:nth-of-type(7){
                   width: 109px;
@@ -719,6 +723,11 @@ export default {
                   border-right: none;
                   line-height: 18px;
                   padding-top: 15px;
+                  p{
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                  }
                 }
               }
             }

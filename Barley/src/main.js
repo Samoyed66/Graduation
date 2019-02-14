@@ -17,6 +17,9 @@ import store from './store'
 import Local from '@/lib/local'
 // 返回顶部效果js插件
 import Back from '@/lib/backUp'
+// jsonp
+import VueJsonp from 'vue-jsonp'
+Vue.use(VueJsonp)
 Vue.prototype.$QRCodeSC = (url) => {
   let qrcode = new QRCode('qrcode', { // qrcode  html为标签id
     width: 152, // 长度

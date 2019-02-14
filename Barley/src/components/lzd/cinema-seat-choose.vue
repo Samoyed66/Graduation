@@ -113,6 +113,7 @@ export default {
       this.toSeatInfo(this.seatList)
       this.toAllPrice(this.seatList.length * this.detailPrice)
       this.$router.push({path: '/orderSure'})
+      window.scrollTo(0, 0)
     },
     // 处理座位选择逻辑
     handleChooseSeat (row, col) {
