@@ -243,6 +243,7 @@ export default {
       .myMai{
         float: left;
         position: relative;
+        z-index: 1;
         a{
           font-size: 12px;
           color: #495060;
@@ -288,6 +289,7 @@ export default {
         padding-right: 29px;
         &>li{
           position: relative;
+          z-index: 1;
           float: left;
           a{
             font-size: 12px;

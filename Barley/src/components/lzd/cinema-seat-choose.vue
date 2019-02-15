@@ -41,20 +41,20 @@
                  :key="col"
                  v-if="seatArray.length > 0"
                  class="seat">
+              <div class="markBox" v-show="mouseNum.rowNum === row && mouseNum.colNum === col">
+                <div class="markIcon"></div>
+                <p>座位: <span>{{row}}排{{col}}座</span></p>
+                <p>楼层: 剧场</p>
+                <p>看台: <span>{{detailCont.city}}</span></p>
+                <p>票价: <span>{{detailPrice}}元</span></p>
+                <p>状态: <span>可售</span></p>
+              </div>
               <div class="inner-seat"
                    @mouseleave="markHide"
                    @mouseenter="markShow(row, col)"
                    @click="handleChooseSeat(row - 1,col - 1)"
                    v-if="seatArray[row - 1][col - 1] !== -1"
                    :class="seatArray[row - 1][col - 1] === 2 ? 'bought-seat':(seatArray[row - 1][col - 1] === 1 ? 'selected-seat':'unselected-seat')">
-                <div class="markBox" v-show="mouseNum.rowNum === row && mouseNum.colNum === col">
-                  <div class="markIcon"></div>
-                  <p>座位: <span>{{row}}排{{col}}座</span></p>
-                  <p>楼层: 剧场</p>
-                  <p>看台: <span>{{detailCont.city}}</span></p>
-                  <p>票价: <span>{{detailPrice}}元</span></p>
-                  <p>状态: <span>可售</span></p>
-                </div>
               </div>
             </div>
           </div>
@@ -250,7 +250,6 @@ export default {
     height:100%;
     width:1000px;
     position: relative;
-    overflow: hidden;
   }
   .inner-seat-wrapper{
     position: absolute;
@@ -266,19 +265,19 @@ export default {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
   }
   .inner-seat{
     width:80%;
     height:80%;
     cursor: pointer;
-    position: relative;
   }
   .markBox{
     width: 184px;
     height: 120px;
     background: rgba(0,0,0,.5);
     position: absolute;
-    bottom: 40px;
+    bottom: 50px;
     left: 0;
     border-radius: 3px;
     transform: translateX(-43%);
@@ -334,7 +333,7 @@ export default {
     transform: translateX(-50%);
     top:100%;
     width:1px;
-    height:800px;
+    height:600px;
     border-left:1px dashed #919191;
   }
   .btn-wrapper{
