@@ -80,6 +80,14 @@
         <p>北京阿博文化有限公司 大麦网 Copyright 2008-2018 All Right Reserved</p>
       </div>
     </footer>
+    <!-- 弹窗 -->
+    <div class="AlertWrap" v-show="alertShow">
+      <div class="AlertCont">
+        <h4>提示</h4>
+        <p>{{alertCont}}或<span @click="toOther">点击此处</span>跳转</p>
+      </div>
+    </div>
+    <!-- 弹窗 -->
   </div>
 </template>
 
@@ -128,10 +136,20 @@ export default {
       timer: null,
       // local数据
       getListDate: '',
-      newArr: []
+      newArr: [],
+      // 倒计时
+      toNum: 5,
+      timere: null,
+      alertCont: '倒计时5s后跳转首页',
+      alertShow: false
     }
   },
   methods: {
+    // 点击跳转
+    toOther () {
+      clearInterval(this.timere)
+      this.$router.push('/') // 跳转到首页
+    },
     // 手机号光标进入
     ContShow () {
       if (this.ContHide()) {
@@ -272,7 +290,18 @@ export default {
         } else {
           this.$local.set('newUser', '[' + DataStr + ']')
         }
-        this.$router.push('/')
+        // 弹窗显示
+        this.alertShow = true
+        this.timere = setInterval(() => {
+          if (this.toNum > 0) {
+            this.toNum--
+            this.alertCont = '倒计时' + this.toNum + 's后跳转首页'
+          } else {
+            this.alertShow = false
+            clearInterval(this.timere)
+            this.$router.push('/')
+          }
+        }, 1000)
       } else {
         this.$alert('当前信息填写不正确！', '提示', {
           confirmButtonText: '确定'
@@ -439,6 +468,40 @@ export default {
                 border-right: none;
               }
             }
+          }
+        }
+      }
+    }
+    .AlertWrap{
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      .AlertCont{
+        width: 420px;
+        height: 137px;
+        border-radius: 5px;
+        text-align: center;
+        background: white;
+        border: 1px solid #ebeef5;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        h4{
+          font-size: 18px;
+          font-weight: normal;
+          padding: 31px 0 26px;
+        }
+        p{
+          font-size: 14px;
+          span{
+            color: #e51f1f;
+            font-weight: bold;
+            padding: 2px;
+            cursor: pointer;
           }
         }
       }

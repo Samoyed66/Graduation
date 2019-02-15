@@ -40,12 +40,21 @@
             <div v-for="col in seatCol"
                  :key="col"
                  v-if="seatArray.length > 0"
-                 class="seat"
-                 :style="{width: seatSize + 'px', height: seatSize + 'px'}">
+                 class="seat">
               <div class="inner-seat"
+                   @mouseleave="markHide"
+                   @mouseenter="markShow(row, col)"
                    @click="handleChooseSeat(row - 1,col - 1)"
                    v-if="seatArray[row - 1][col - 1] !== -1"
                    :class="seatArray[row - 1][col - 1] === 2 ? 'bought-seat':(seatArray[row - 1][col - 1] === 1 ? 'selected-seat':'unselected-seat')">
+                <div class="markBox" v-show="mouseNum.rowNum === row && mouseNum.colNum === col">
+                  <div class="markIcon"></div>
+                  <p>座位: <span>{{row}}排{{col}}座</span></p>
+                  <p>楼层: 剧场</p>
+                  <p>看台: <span>{{detailCont.city}}</span></p>
+                  <p>票价: <span>{{detailPrice}}元</span></p>
+                  <p>状态: <span>可售</span></p>
+                </div>
               </div>
             </div>
           </div>
@@ -64,16 +73,19 @@ export default {
       // 影院座位的二维数组,-1为非座位，0为未购座位，1为已选座位(绿色),2为已购座位(红色)
       seatArray: [],
       // 影院座位行数
-      seatRow: 10,
+      seatRow: 11,
       // 影院座位列数
-      seatCol: 20,
-      // 座位尺寸
-      seatSize: '',
+      seatCol: 30,
       // 座位信息数据
       seatList: [],
       // 座位信息显示隐藏
       seatOff: false,
-      detailCont: {}
+      detailCont: {},
+      mouseNum: {
+        rowNum: -1,
+        colNum: -1
+      },
+      timer: null
     }
   },
   computed: {
@@ -83,6 +95,19 @@ export default {
   methods: {
     // vuex
     ...mapMutations(['toSeatInfo', 'toAllPrice']),
+    // 划过显示信息
+    markShow (rowI, colI) {
+      clearTimeout(this.timer)
+      this.mouseNum.rowNum = rowI
+      this.mouseNum.colNum = colI
+    },
+    // 划出隐藏
+    markHide () {
+      this.timer = setTimeout(() => {
+        this.mouseNum.rowNum = -1
+        this.mouseNum.colNum = -1
+      }, 100)
+    },
     // 重置座位
     resetSeat () {
       // 将所有座位的值变为0
@@ -124,13 +149,25 @@ export default {
       // 如果是已选座位点击后变未选
       if (seatValue === 1) { // 取消
         newArray[row][col] = 0
-      } else if (seatValue === 0) { // 选中
-        let obj = {
-          row: row + 1,
-          col: col
+        var hideOff = this.seatList.filter((item) => {
+          return item.row !== (row + 1) || item.col !== col
+        })
+        this.seatList = hideOff
+        if (this.seatList.length <= 0) {
+          this.seatOff = false
         }
-        this.seatList.push(obj)
-        this.seatOff = true
+      } else if (seatValue === 0) { // 选中
+        var onceOff = this.seatList.some((item) => {
+          return item.row === (row + 1) && item.col === col
+        })
+        if (!onceOff) {
+          let obj = {
+            row: row + 1,
+            col: col
+          }
+          this.seatList.push(obj)
+          this.seatOff = true
+        }
         newArray[row][col] = 1
       }
       // 必须整体更新二维数组，Vue无法检测到数组某一项更新,必须slice复制一个数组才行
@@ -140,24 +177,51 @@ export default {
     initSeatArray () {
       let seatArray = Array(this.seatRow).fill(0).map(() => Array(this.seatCol).fill(0))
       this.seatArray = seatArray
-      this.seatSize = this.$refs.innerSeatWrapper ? parseInt(parseInt(window.getComputedStyle(this.$refs.innerSeatWrapper).width, 10) / this.seatCol, 10) : 0
       // 初始化不是座位的地方
       this.initNonSeatPlace()
     },
     // 初始化不是座位的地方
     initNonSeatPlace () {
-      for (let i = 0; i < 9; i++) {
+      for (let i = 0; i < 1; i++) {
+        this.seatArray[i][2] = -1
+        this.seatArray[i][12] = -1
+        this.seatArray[i][17] = -1
+        this.seatArray[i][26] = -1
+      }
+      for (let i = 0; i < 2; i++) {
+        this.seatArray[i][1] = -1
+        this.seatArray[i][11] = -1
+        this.seatArray[i][18] = -1
+        this.seatArray[i][27] = -1
+      }
+      for (let i = 0; i < 3; i++) {
+        this.seatArray[i][10] = -1
+        this.seatArray[i][19] = -1
+        this.seatArray[i][28] = -1
+      }
+      for (let i = 0; i < 4; i++) {
         this.seatArray[i][0] = -1
+        this.seatArray[i][9] = -1
+        this.seatArray[i][20] = -1
+        this.seatArray[i][29] = -1
       }
-      for (let i = 0; i < 8; i++) {
-        this.seatArray[i][this.seatArray[0].length - 1] = -1
-        this.seatArray[i][this.seatArray[0].length - 2] = -1
+      for (let i = 0; i < 11; i++) {
+        this.seatArray[i][8] = -1
+        this.seatArray[i][21] = -1
       }
-      for (let i = 0; i < 9; i++) {
-        this.seatArray[i][this.seatArray[0].length - 3] = -1
+      for (let i = 9; i < 11; i++) {
+        this.seatArray[i][0] = -1
+        this.seatArray[i][10] = -1
+        this.seatArray[i][19] = -1
+        this.seatArray[i][29] = -1
       }
+      for (let i = 6; i < 11; i++) {
+        this.seatArray[i][9] = -1
+        this.seatArray[i][20] = -1
+      }
+      // 横向空行
       for (let i = 0; i < this.seatArray[0].length; i++) {
-        this.seatArray[2][i] = -1
+        this.seatArray[6][i] = -1
       }
     }
   },
@@ -196,6 +260,8 @@ export default {
     box-sizing: border-box;
   }
   .seat{
+    width: 33px;
+    height: 48px;
     float:left;
     display: flex;
     justify-content: center;
@@ -205,14 +271,46 @@ export default {
     width:80%;
     height:80%;
     cursor: pointer;
+    position: relative;
+  }
+  .markBox{
+    width: 184px;
+    height: 120px;
+    background: rgba(0,0,0,.5);
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    border-radius: 3px;
+    transform: translateX(-43%);
+    color: white;
+    box-sizing: border-box;
+    padding: 15px;
+  }
+  .markBox p{
+    font-size: 12px;
+    height: 18px;
+    line-height: 18px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .markBox .markIcon{
+    border-top: 5px solid transparent;
+    border-left: 5px solid transparent;
+    border-right: 5px solid rgba(0,0,0,.5);
+    border-bottom: 5px solid rgba(0,0,0,.5);
+    position: absolute;
+    left: 50%;
+    bottom: -8px;
+    transform: rotate(45deg) translateX(-50%);
   }
   .selected-seat{
     background: url('../../assets/images/selected.png') center center no-repeat;
-    background-size: 100% 100%;
+    background-size: contain;
   }
   .unselected-seat{
     background: url('../../assets/images/unselected.png') center center no-repeat;
-    background-size: 100% 100%;
+    background-size: contain;
   }
   .bought-seat{
     background: url('../../assets/images/bought.png') center center no-repeat;
@@ -220,7 +318,7 @@ export default {
   }
   .screen-center{
     position: absolute;
-    left:50%;
+    left:49.5%;
     transform: translateX(-50%);
     padding:5px;
     font-size: 13px;
