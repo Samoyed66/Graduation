@@ -10,34 +10,14 @@
       </h2>
       <div class="head">
         <div class="left">
-          <el-col :span="14">
-            <el-dropdown trigger="click">
-          <span class="el-dropdown-link">
-           全部订单<i class="fa fa-caret-down"></i>
-          </span>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>黄金糕</el-dropdown-item>
-                <el-dropdown-item>狮子头</el-dropdown-item>
-                <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                <el-dropdown-item>双皮奶</el-dropdown-item>
-                <el-dropdown-item>蚵仔煎</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-          </el-col>
-          <el-col :span="14">
-            <el-dropdown trigger="click">
-          <span class="el-dropdown-link">
-           全部<i class="fa fa-caret-down"></i>
-          </span>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>黄金糕</el-dropdown-item>
-                <el-dropdown-item>狮子头</el-dropdown-item>
-                <el-dropdown-item>螺蛳粉</el-dropdown-item>
-                <el-dropdown-item>双皮奶</el-dropdown-item>
-                <el-dropdown-item>蚵仔煎</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-          </el-col>
+          <el-select v-model="value" clearable placeholder="全部订单">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </div>
         <div class="seach-right">
           <input type="input" placeholder="请输入订单编号/商品名称...">
@@ -56,13 +36,13 @@
           <th>交易状态</th>
           <th>操作</th>
         </tr>
-        <tr>
-          <td>60156468718</td>
-          <td>2018-05-14 14:31:23</td>
-          <td>商品名称</td>
-          <td>2</td>
-          <td>1230</td>
-          <td>2341</td>
+        <tr v-for="(item, index) in orderinfo" :key="index">
+          <td>{{item.orderNum}}</td>
+          <td>{{item.time}}</td>
+          <td>{{item.title}}</td>
+          <td>{{item.num}}</td>
+          <td>{{item.price}}</td>
+          <td>{{item.allPrice}}</td>
           <td>未支付</td>
           <td>操作</td>
         </tr>
@@ -73,7 +53,33 @@
 
 <script>
 export default {
-  name: 'oredr'
+  name: 'oredr',
+  data () {
+    return {
+      orderinfo: null,
+      options: [{
+        value: '选项1',
+        label: '黄金糕'
+      }, {
+        value: '选项2',
+        label: '双皮奶'
+      }, {
+        value: '选项3',
+        label: '蚵仔煎'
+      }, {
+        value: '选项4',
+        label: '龙须面'
+      }, {
+        value: '选项5',
+        label: '北京烤鸭'
+      }],
+      value: ''
+    }
+  },
+  created: function () {
+    this.orderinfo = JSON.parse(this.$local.obtain('orderInfo'))
+    console.log(this.orderinfo)
+  }
 }
 </script>
 
