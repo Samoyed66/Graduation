@@ -111,6 +111,13 @@ export default {
       }
     }
   },
+  created: function () {
+    if (this.$local.obtain('tableinfo')) {
+      this.tableinfo = this.$local.obtain('tableinfo')
+    } else {
+      this.$local.set('tableinfo', this.tableinfo)
+    }
+  },
   methods: {
     /* 弹出信息输入框 */
     open: function () {
@@ -125,7 +132,7 @@ export default {
       this.$refs[addinfo].validate((valid) => {
         if (valid) {
           this.tableinfo.push(this.addinfo)
-          console.log(this.tableinfo)
+          this.$local.set('tableinfo', this.tableinfo)
           this.show = false
         } else {
           console.log('error submit!!')
@@ -136,6 +143,7 @@ export default {
     /* 删除身份信息 */
     remove: function (index) {
       this.tableinfo.splice(index, 1)
+      this.$local.set('tableinfo', this.tableinfo)
     }
   }
 }
