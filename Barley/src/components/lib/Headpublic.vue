@@ -110,6 +110,12 @@
         <div class="search clear">
           <input type="text" placeholder="请输入演出、艺人、场馆名称..." v-model="searchVal">
           <button @click="searchBtn">搜索</button>
+          <ul v-show="false" class="jsonpList">
+            <li class="clear">
+              <p>安防监控啥房间卡设计稿</p>
+              <span>杭州杭州</span>
+            </li>
+          </ul>
         </div>
       </div>
     </header>
@@ -518,6 +524,7 @@ export default {
         line-height: 34px;
         border: 3px solid #ff3c1b;
         float: left;
+        position: relative;
         input{
           height: 100%;
           width: 479px;
@@ -545,6 +552,39 @@ export default {
           font-size: 16px;
           color: white;
           cursor: pointer;
+        }
+        .jsonpList{
+          width: 449px;
+          padding: 0 14px;
+          border: 1px solid #f4f4f4;
+          border-radius: 3px;
+          background: white;
+          position: absolute;
+          top: 40px;
+          left: 0;
+          z-index: 3;
+          li{
+            height: 56px;
+            line-height: 56px;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            color: #111;
+            p{
+              width: 262px;
+              height: 100%;
+              float: left;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+            span{
+              display: block;
+              height: 100%;
+              width: 60px;
+              float: right;
+              text-align: right;
+            }
+          }
         }
       }
     }

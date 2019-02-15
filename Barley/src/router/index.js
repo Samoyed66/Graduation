@@ -29,7 +29,8 @@ var router = new Router({
         // 设置头部是否显示
         headShow: true,
         // 设置底部是否显示
-        footShow: true
+        footShow: true,
+        login: false
       }
     },
     {
@@ -40,7 +41,8 @@ var router = new Router({
         // 设置头部是否显示
         headShow: false,
         // 设置底部是否显示
-        footShow: false
+        footShow: false,
+        login: false
       }
     },
     {
@@ -51,7 +53,8 @@ var router = new Router({
         // 设置头部是否显示
         headShow: false,
         // 设置底部是否显示
-        footShow: false
+        footShow: false,
+        login: false
       }
     },
     {
@@ -62,7 +65,8 @@ var router = new Router({
         // 设置头部是否显示
         headShow: true,
         // 设置底部是否显示
-        footShow: true
+        footShow: true,
+        login: true
       }
     },
     {
@@ -73,7 +77,8 @@ var router = new Router({
         // 设置头部是否显示
         headShow: true,
         // 设置底部是否显示
-        footShow: true
+        footShow: true,
+        login: true
       }
     },
     {
@@ -84,7 +89,8 @@ var router = new Router({
         // 设置头部是否显示
         headShow: true,
         // 设置底部是否显示
-        footShow: true
+        footShow: true,
+        login: false
       }
     },
     {
@@ -95,7 +101,8 @@ var router = new Router({
         // 设置头部是否显示
         headShow: true,
         // 设置底部是否显示
-        footShow: true
+        footShow: true,
+        login: false
       }
     },
     {
@@ -106,7 +113,8 @@ var router = new Router({
         // 设置头部是否显示
         headShow: true,
         // 设置底部是否显示
-        footShow: true
+        footShow: true,
+        login: false
       }
     },
     {
@@ -117,7 +125,8 @@ var router = new Router({
         // 设置头部是否显示
         headShow: true,
         // 设置底部是否显示
-        footShow: true
+        footShow: true,
+        login: false
       }
     },
     {
@@ -128,7 +137,8 @@ var router = new Router({
         // 设置头部是否显示
         headShow: true,
         // 设置底部是否显示
-        footShow: true
+        footShow: true,
+        login: false
       }
     },
     {
@@ -139,7 +149,8 @@ var router = new Router({
         // 设置头部是否显示
         headShow: true,
         // 设置底部是否显示
-        footShow: true
+        footShow: true,
+        login: true
       }
     },
     {
@@ -150,7 +161,8 @@ var router = new Router({
         // 设置头部是否显示
         headShow: false,
         // 设置底部是否显示
-        footShow: false
+        footShow: false,
+        login: true
       }
     },
     {
@@ -161,7 +173,8 @@ var router = new Router({
         // 设置头部是否显示
         headShow: false,
         // 设置底部是否显示
-        footShow: false
+        footShow: false,
+        login: true
       }
     },
     {
@@ -172,7 +185,8 @@ var router = new Router({
         // 设置头部是否显示
         headShow: false,
         // 设置底部是否显示
-        footShow: false
+        footShow: false,
+        login: true
       }
     },
     {
@@ -182,7 +196,8 @@ var router = new Router({
         // 设置头部是否显示
         headShow: true,
         // 设置底部是否显示
-        footShow: true
+        footShow: true,
+        login: true
       },
       children: [
         {
@@ -193,7 +208,8 @@ var router = new Router({
             // 设置头部是否显示
             headShow: true,
             // 设置底部是否显示
-            footShow: true
+            footShow: true,
+            login: true
           }
         },
         {
@@ -204,7 +220,8 @@ var router = new Router({
             // 设置头部是否显示
             headShow: true,
             // 设置底部是否显示
-            footShow: true
+            footShow: true,
+            login: true
           }
         },
         {
@@ -215,11 +232,30 @@ var router = new Router({
             // 设置头部是否显示
             headShow: true,
             // 设置底部是否显示
-            footShow: true
+            footShow: true,
+            login: true
           }
         }
       ]
     }
   ]
+})
+router.beforeEach(function (to, from, next) {
+  var isLogin = to.matched.some((itme) => {
+    return itme.meta.login
+  })
+  if (isLogin) {
+    if (router.app.$local.obtain('loginUser')) {
+      next()
+    } else {
+      router.push({
+        path: '/login',
+        query: {
+          a: to.path.slice(1)
+        }
+      })
+    }
+  }
+  next()
 })
 export default router
