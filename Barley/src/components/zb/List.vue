@@ -47,7 +47,7 @@
           <div class="box2 clear">
             <div @click="toDetail(ListItem)" class="main1" v-for="(ListItem, ListIndex) in someList" :key="ListIndex" :style="{'width': iconNum === 1 ? '227px':'908px'}">
               <div class="listPic" @mouseenter="InfoShow(ListIndex)" @mouseleave="InfoHide">
-                <img :src="ListItem.src">
+                <img v-lazy="ListItem.src">
                 <div class="cityInfo" v-show="iconNum === 1" :style="{'transform': cityInfoShow === ListIndex ? 'translateY(0)':'translateY(20px)'}">{{ListItem.city}}</div>
               </div>
               <dl v-show="iconNum !== 1">
@@ -80,7 +80,7 @@
       <div class="right">
         <h4>您可能喜欢</h4>
         <div @click="toDetail(someList[otherIndex])" v-if="someList.length > 0" class="main" v-for="otherIndex in 2" :key="otherIndex">
-          <img :src="someList[otherIndex].src">
+          <img v-lazy="someList[otherIndex].src">
           <div class="right-1">
             <dl>
               <dt>{{someList[otherIndex].picTitle}}</dt>
@@ -172,14 +172,17 @@ export default {
     listNumUp () {
       this.listNum++
       this.someList = this.GetList[this.listNum].list
+      window.scrollTo(0, 0)
     },
     listNumDown () {
       this.listNum--
       this.someList = this.GetList[this.listNum].list
+      window.scrollTo(0, 0)
     },
     changelistNum (i) {
       this.listNum = i - 1
       this.someList = this.GetList[this.listNum].list
+      window.scrollTo(0, 0)
     },
     changerandom () {
       this.randomNum = Math.round(Math.random() * 2)
@@ -187,7 +190,7 @@ export default {
         this.GetList = res.data.card
         this.someList = this.GetList[this.listNum].list
         for (var k = 0; k < this.GetList.length; k++) {
-          this.allNum += this.GetList[k].list.length
+          this.allNum = this.GetList[k].list.length
         }
       })
     },
@@ -199,7 +202,7 @@ export default {
         this.GetList = res.data.card
         this.someList = this.GetList[this.listNum].list
         for (var k = 0; k < this.GetList.length; k++) {
-          this.allNum += this.GetList[k].list.length
+          this.allNum = this.GetList[k].list.length
         }
       })
     },

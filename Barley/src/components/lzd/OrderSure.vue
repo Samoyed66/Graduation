@@ -76,6 +76,53 @@
       </div>
     </nav>
     <!-- 头部 -->
+    <!-- 购票人信息弹窗 -->
+    <div class="infoWrap" v-show="infoOff">
+      <div class="infoBox">
+        <div class="newBtn clear">
+          <span class="fa fa-close" @click="closeWrap"></span>
+          <button @click="open">新建购票人</button>
+          <button @click="trueCheck">确认</button>
+        </div>
+        <div class="presonList">
+          <div class="listTitle">
+            <div><input type="checkbox" v-model="isCheckeds"></div>
+            <div>姓名</div>
+            <div>卡类型</div>
+            <div>身份证号</div>
+          </div>
+          <div class="listCont" v-for="(listItem, liseIndex) in tableinfo" :key="liseIndex">
+            <div><input type="checkbox" v-model="listItem.checked"></div>
+            <div>{{listItem.name}}</div>
+            <div>{{listItem.cardtype}}</div>
+            <div>{{listItem.id}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--添加购票人信息弹出框-->
+    <div class="NewWrap" v-show="show">
+      <el-form :rules="rules" ref="formwrap" class="addinfo" label-position="right" label-width="80px" :model="addinfo">
+        <el-form-item label="名称" prop="name">
+          <el-input v-model="addinfo.name"></el-input>
+        </el-form-item>
+        <el-form-item label="卡类型" prop="cardtype">
+          <el-select v-model="addinfo.cardtype" placeholder="请选择卡类型">
+            <el-option label="vip" value="vip"></el-option>
+            <el-option label="svip" value="svip"></el-option>
+            <el-option label="lowb" value="lowb"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="身份证号" prop="id">
+          <el-input v-model.number="addinfo.id"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit('formwrap')">立即创建</el-button>
+          <el-button @click="reslove">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <!-- 购票人信息弹窗 -->
     <div class="OrderCont">
       <div class="wrap">
         <ul class="selectNav">
@@ -93,7 +140,23 @@
         </div>
         <div class="presonWrap">
           <div class="selectPreson">
-            购票人: <button>选择购票人</button>
+            购票人: <button @click="presonInfo">选择购票人</button>
+          </div>
+          <div class="checkList" v-show="checkPresonList.length > 0">
+            <div class="listTitle">
+              <div>#</div>
+              <div>姓名</div>
+              <div>卡类型</div>
+              <div>身份证号</div>
+              <div>操作</div>
+            </div>
+            <div class="listCont" v-for="(listItem, liseIndex) in checkPresonList" :key="liseIndex">
+              <div>{{liseIndex + 1}}</div>
+              <div>{{listItem.name}}</div>
+              <div>{{listItem.cardtype}}</div>
+              <div>{{listItem.id}}</div>
+              <div><button @click="falseCheck(listItem)">取消</button></div>
+            </div>
           </div>
         </div>
         <div class="orderTitle">
@@ -223,6 +286,24 @@ import { mapState, mapMutations } from 'vuex'
 export default {
   name: 'OrderSure',
   data () {
+    /* 自定义验证身份证号 */
+    var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/
+    var checkid = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('身份证号不能为空'))
+      }
+      setTimeout(() => {
+        if (!Number.isInteger(value)) {
+          callback(new Error('请输入数字值'))
+        } else {
+          if (reg.test(value) === false) {
+            callback(new Error('身份证输入不合法'))
+          } else {
+            callback()
+          }
+        }
+      }, 200)
+    }
     return {
       off: true,
       // local数据
@@ -231,7 +312,53 @@ export default {
       invoiceList: ['公司', '个人'],
       invoiceNum: 0,
       insuranceVal: true,
-      orderVal: false
+      orderVal: false,
+      infoOff: false,
+      /* 总购票人信息 */
+      tableinfo: [
+        {
+          name: '小明',
+          cardtype: 'vip',
+          id: '421658956123456789',
+          checked: false
+        },
+        {
+          name: '小hong',
+          cardtype: 'svip',
+          id: '421658956123456345',
+          checked: false
+        },
+        {
+          name: '小王',
+          cardtype: 'lowb',
+          id: '421658954567328906',
+          checked: false
+        }
+      ],
+      /* 弹出框是否显示 */
+      show: false,
+      /* 单个添加的购票人信息 */
+      addinfo: {
+        name: '',
+        cardtype: '',
+        id: '',
+        checked: false
+      },
+      /* 表单验证规则 */
+      rules: {
+        name: [
+          { required: true, message: '请输入姓名', trigger: 'blur' },
+          { min: 1, max: 5, message: '长度在 1 到 5 个字符', trigger: 'blur' }
+        ],
+        cardtype: [
+          { required: true, message: '请选择卡类型', trigger: 'change' }
+        ],
+        id: [
+          {validator: checkid, trigger: 'blur'}
+        ]
+      },
+      allOff: true,
+      checkPresonList: []
     }
   },
   computed: {
@@ -242,6 +369,25 @@ export default {
         return 20
       } else {
         return 0
+      }
+    },
+    isCheckeds: {
+      get () {
+        return this.tableinfo.every((item) => {
+          return item.checked
+        })
+      },
+      set () {
+        if (this.allOff) {
+          this.tableinfo.forEach((item) => {
+            item.checked = true
+          })
+        } else {
+          this.tableinfo.forEach((item) => {
+            item.checked = false
+          })
+        }
+        this.allOff = !this.allOff
       }
     }
   },
@@ -262,6 +408,52 @@ export default {
         this.$router.push({path: '/orderPay'})
         window.scrollTo(0, 0)
       }
+    },
+    // 购票人信息
+    presonInfo () {
+      this.infoOff = true
+    },
+    // 关闭信息弹窗
+    closeWrap () {
+      this.infoOff = false
+    },
+    /* 弹出信息输入框 */
+    open () {
+      this.show = true
+      this.infoOff = false
+    },
+    /* 取消信息输入 */
+    reslove () {
+      this.show = false
+      this.infoOff = true
+    },
+    /* 验证成功信息添加 */
+    onSubmit (addinfo) {
+      this.$refs[addinfo].validate((valid) => {
+        if (valid) {
+          this.tableinfo.push(this.addinfo)
+          this.$local.set('tableinfo', this.tableinfo)
+          this.show = false
+          this.infoOff = true
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    // 确认购票人
+    trueCheck () {
+      this.checkPresonList = this.tableinfo.filter((item) => {
+        return item.checked
+      })
+      this.infoOff = false
+    },
+    // 取消购票人
+    falseCheck (val) {
+      val.checked = false
+      this.checkPresonList = this.checkPresonList.filter((item) => {
+        return item.checked
+      })
     }
   },
   created () {
@@ -271,6 +463,11 @@ export default {
     }
     if (this.$local.obtain('DetailData')) {
       this.detailCont = this.$local.obtain('DetailData')
+    }
+    if (this.$local.obtain('tableinfo')) {
+      this.tableinfo = this.$local.obtain('tableinfo')
+    } else {
+      this.$local.set('tableinfo', this.tableinfo)
     }
   }
 }
@@ -553,6 +750,58 @@ export default {
               margin-left: 10px;
             }
           }
+          .checkList{
+            width: 100%;
+            border: 1px solid #dddee1;
+            &>div{
+              display: flex;
+              justify-content: space-around;
+              font-size: 12px;
+              color: #495060;
+              div{
+                height: 40px;
+                line-height: 40px;
+                width: 20%;
+                padding-left: 18px;
+                border-right: 1px solid #dddee1;
+                border-bottom: 1px solid #dddee1;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+              &.listTitle{
+                background: #f8f8f9;
+                font-size: 14px;
+                div{
+                  &:last-of-type{
+                    border-right: none;
+                  }
+                }
+              }
+              &.listCont{
+                div{
+                  height: 48px;
+                  line-height: 48px;
+                  &:last-of-type{
+                    border-right: none;
+                    button{
+                      width: 60px;
+                      height: 32px;
+                      background: #ff3c1b;
+                      color: white;
+                      border-radius: 5px;
+                      cursor: pointer;
+                    }
+                  }
+                }
+                &:last-of-type{
+                  div{
+                    border-bottom: none;
+                  }
+                }
+              }
+            }
+          }
         }
         .payment{
           width: 100%;
@@ -757,6 +1006,122 @@ export default {
             &:last-of-type{
               a{
                 border-right: none;
+              }
+            }
+          }
+        }
+      }
+    }
+    // 添加购票人
+    .NewWrap{
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background: rgba(0,0,0,.5);
+      z-index: 3;
+      .addinfo{
+        padding: 20px;
+        width: 50%;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background: linear-gradient(left top, white , blueviolet);
+      }
+    }
+    .infoWrap{
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,.5);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 3;
+      .infoBox{
+        width: 500px;
+        height: 181px;
+        padding: 15px;
+        background: white;
+        border: 1px solid #f7f7f7;
+        border-top: 2px solid #f7f7f7;
+        border-bottom: 2px solid #f7f7f7;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        .newBtn{
+          width: 100%;
+          margin-bottom: 15px;
+          span{
+            padding-left: 5px;
+            cursor: pointer;
+            font-size: 20px;
+          }
+          button{
+            width: 80px;
+            height: 26px;
+            background: #ed3f14;
+            color: white;
+            font-size: 12px;
+            border-radius: 3px;
+            float: right;
+            margin-right: 15px;
+            cursor: pointer;
+            &:last-of-type{
+              width: 50px;
+              background: green;
+            }
+          }
+        }
+        .presonList{
+          width: 100%;
+          max-height: 143px;
+          border: 1px solid #dddee1;
+          overflow: auto;
+          &>div{
+            display: flex;
+            justify-content: space-around;
+            font-size: 12px;
+            color: #495060;
+            div{
+              height: 30px;
+              line-height: 30px;
+              width: 25%;
+              padding-left: 18px;
+              border-right: 1px solid #dddee1;
+              border-bottom: 1px solid #dddee1;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+            &.listTitle{
+              background: #f8f8f9;
+              div{
+                &:first-of-type{
+                  width: 45px;
+                }
+                &:last-of-type{
+                  border-right: none;
+                }
+              }
+            }
+            &.listCont{
+              div{
+                height: 36px;
+                line-height: 36px;
+                &:nth-of-type(1){
+                  width: 45px;
+                }
+                &:last-of-type{
+                  border-right: none;
+                }
+              }
+              &:last-of-type{
+                div{
+                  border-bottom: none;
+                }
               }
             }
           }

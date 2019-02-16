@@ -12,9 +12,9 @@
     </ul>
     <!-- 导航 -->
     <!-- 轮播图 -->
-    <el-carousel :interval="1500" arrow="always" height="386px">
+    <el-carousel :interval="2500" arrow="always" height="386px">
       <el-carousel-item v-for="(item, index) in picList" :key="index">
-        <img :src="item">
+        <img v-lazy="item">
       </el-carousel-item>
     </el-carousel>
     <!-- 轮播图 -->
@@ -23,7 +23,7 @@
       <img src='@/assets/images/like.png' class="like"/>
       <ul class="clear">
         <li @click="toDetail(likeItem)" v-for="(likeItem, likeIndex) in likeList" :key="likeIndex">
-          <img :src="likeItem.src">
+          <img v-lazy="likeItem.src">
           <h4>{{likeItem.picTitle}}</h4>
           <p>票价：<span>{{likeItem.price}}</span>起</p>
         </li>
@@ -44,7 +44,7 @@
         </div>
         <ul class="clear">
           <li @click="toDetail(smallItem)" @mouseenter="smallInfoShow(smallIndex)" @mouseleave="smallInfoHide" v-for="(smallItem, smallIndex) in focusing.smallPic" :key="smallIndex">
-            <img :src="smallItem.src">
+            <img v-lazy="smallItem.src">
             <div class="smallInfo" :style="{'transform': smallBol === smallIndex ? 'translateY(0)':'translateY(100%)'}">
               <h4>{{smallItem.picTitle}}</h4>
               <p>{{smallItem.price}}</p>
@@ -72,7 +72,7 @@
           <ul class="clear" v-for="(cardItem, cardIndex) in cardList" :key="cardIndex">
             <li @click="toDetail(cardListItem)" class="clear" v-for="(cardListItem, cardListIndex) in cardItem.list" :key="cardListIndex">
               <div class="cardPic">
-                <img :src="cardListItem.src">
+                <img v-lazy="cardListItem.src">
               </div>
               <div class="cardInfo">
                 <h4>{{cardListItem.picTitle}}</h4>
@@ -102,7 +102,7 @@
         </div>
         <ul class="smallPic clear">
           <li @click="toDetail(smallItem)" class="clear" v-for="(smallItem, smallIndex) in hotList.smallPic" :key="smallIndex">
-            <img :src="smallItem.src">
+            <img v-lazy="smallItem.src">
             <div class="smallInfo">
               <h4>{{smallItem.picTitle}}</h4>
               <p>{{smallItem.time}}</p>
@@ -124,7 +124,7 @@
     <div class="cooperation">
       <img src='@/assets/images/cooperation.png'/>
       <div class="picWrap clear">
-        <img :src="PicItem" v-for="(PicItem, PicIndex) in conPicList" :key="PicIndex">
+        <img v-lazy="PicItem" v-for="(PicItem, PicIndex) in conPicList" :key="PicIndex">
       </div>
     </div>
     <!-- 合作方 -->

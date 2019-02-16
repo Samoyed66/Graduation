@@ -19,6 +19,12 @@ import Local from '@/lib/local'
 import Back from '@/lib/backUp'
 // jsonp
 import VueJsonp from 'vue-jsonp'
+// 懒加载
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload, {
+  error: 'assets/images/error.png',
+  loadimg: 'assets/images/loadimg.gif'
+})
 Vue.use(VueJsonp)
 Vue.prototype.$QRCodeSC = (url) => {
   let qrcode = new QRCode('qrcode', { // qrcode  html为标签id

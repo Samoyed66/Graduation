@@ -11,9 +11,9 @@
     </ul>
     <!-- 导航 -->
     <!-- 轮播图 -->
-    <el-carousel :interval="1500" arrow="always" height="386px">
+    <el-carousel :interval="2500" arrow="always" height="386px">
       <el-carousel-item v-for="(item, index) in picList" :key="index">
-        <img :src="item">
+        <img v-lazy="item">
       </el-carousel-item>
     </el-carousel>
     <!-- 轮播图 -->
@@ -23,7 +23,7 @@
       <div class="hotCont clear">
         <div @click="toDetail(hotItem)" class="bigPicCont" v-for="(hotItem, hotIndex) in hotList.bigPic" :key="hotIndex">
           <span>{{hotItem.citynamename}}</span>
-          <img :src="hotItem.src">
+          <img v-lazy="hotItem.src">
           <div class="picInfoBg">
             <div class="picInfo">
               <h4>{{hotItem.picTitle}}</h4>
@@ -34,7 +34,7 @@
         <ul class="smallPicCont clear">
           <li @click="toDetail(smallItem)" class="clear" v-for="(smallItem, smallIndex) in hotList.smallPic" :key="smallIndex">
             <span>{{smallItem.cityname}}</span>
-            <img :src="smallItem.src">
+            <img v-lazy="smallItem.src">
             <div class="picInfo">
               <h4>{{smallItem.picTitle}}</h4>
               <p class="picCity">{{smallItem.city}}</p>
@@ -51,7 +51,7 @@
       <ul class="clear">
         <li @click="toDetail(picItem)" v-for="(picItem, picIndex) in otherItem.subList" :key="picIndex">
           <span>{{picItem.cityname}}</span>
-          <img :src="picItem.src">
+          <img v-lazy="picItem.src">
           <div class="otherInfo">
             <h4>{{picItem.picTitle}}</h4>
             <p>{{picItem.time}}</p>
@@ -64,7 +64,7 @@
     <div class="cooperation">
       <img src='@/assets/images/cooperation.png'/>
       <div class="picWrap clear">
-        <img :src="PicItem" v-for="(PicItem, PicIndex) in conPicList" :key="PicIndex">
+        <img v-lazy="PicItem" v-for="(PicItem, PicIndex) in conPicList" :key="PicIndex">
       </div>
     </div>
     <!-- 合作方 -->

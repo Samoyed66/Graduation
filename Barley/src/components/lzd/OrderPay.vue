@@ -107,7 +107,7 @@
         <div class="payment clear">
           <div @click="changePay(payIndex)" class="clear" v-for="(payItem, payIndex) in paymentList" :key="payIndex">
             <span :class="{'fa fa-dot-circle-o': paymentNum === payIndex}" :style="{'border': paymentNum === payIndex ? 'none':'1px solid #e6e7e9'}"></span>
-            <img :src="payItem">
+            <img v-lazy="payItem">
           </div>
         </div>
         <button @click="toQRpay">确认无误，支付</button>

@@ -17,7 +17,7 @@
             <h4>热门推荐</h4>
             <ul class="clear">
               <li @click="toDetail(hotItem)" v-for="(hotItem, hotIndex) in partList.picList" :key="hotIndex">
-                <img :src="hotItem.src">
+                <img v-lazy="hotItem.src">
                 <h4>{{hotItem.picTitle}}</h4>
                 <p>票价: <span>{{hotItem.price}}</span></p>
               </li>
@@ -32,9 +32,9 @@
           <router-link tag="li" to="/rock">摇滚</router-link>
         </ul>
         <!-- 轮播图 -->
-        <el-carousel :interval="1500" arrow="always" height="386px">
+        <el-carousel :interval="2500" arrow="always" height="386px">
           <el-carousel-item v-for="(bannerItem, bannerIndex) in picList" :key="bannerIndex">
-            <img :src="bannerItem">
+            <img v-lazy="bannerItem">
           </el-carousel-item>
         </el-carousel>
       </div>
@@ -49,7 +49,7 @@
         <div class="cardListWrap clear" :style="{transform: 'translateX(' + (-1120 * cardNum) + 'px)'}">
           <ul class="clear" v-for="(cardItem, cardIndex) in cardInfoList" :key="cardIndex">
             <li @click="toDetail(cardInfoItem)" v-for="(cardInfoItem, cardInfoIndex) in cardItem.list" :key="cardInfoIndex">
-              <img :src="cardInfoItem.src">
+              <img v-lazy="cardInfoItem.src">
               <h4>{{cardInfoItem.picTitle}}</h4>
               <p>票价: <span>{{cardInfoItem.price}}</span></p>
             </li>
@@ -63,7 +63,7 @@
       <div class="contInfo clear">
         <h4><span>{{contItem.listLeft[0].order}}</span>{{contItem.listLeft[0].title}}</h4>
         <div @click="toDetail(bigItem)" @mouseenter="infoShow(contIndex)" @mouseleave="infoHide" class="bigPic" v-for="(bigItem, bigIndex) in contItem.listLeft[0].bigPic" :key="bigIndex">
-          <img :src="bigItem.src">
+          <img v-lazy="bigItem.src">
           <div class="PicInfo" :style="{'transform': contNum === contIndex ? 'translateY(0)':'translateY(82px)'}">
             <h4>{{bigItem.picTitle}}</h4>
             <p>{{bigItem.price}}</p>
@@ -73,7 +73,7 @@
         </div>
         <ul class="clear smallPic">
           <li @click="toDetail(smallItem)" class="clear" v-for="(smallItem, smallIndex) in contItem.listLeft[0].smallPic" :key="smallIndex">
-            <img :src="smallItem.src">
+            <img v-lazy="smallItem.src">
             <div class="smallPicInfo">
               <h4>{{smallItem.picTitle}}</h4>
               <p>{{smallItem.time}}</p>

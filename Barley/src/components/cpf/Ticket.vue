@@ -77,24 +77,28 @@ export default {
         {
           name: '小明',
           cardtype: 'vip',
-          id: '421658956123456789'
+          id: '421658956123456789',
+          checked: false
         },
         {
           name: '小hong',
           cardtype: 'svip',
-          id: '421658956123456345'
+          id: '421658956123456345',
+          checked: false
         },
         {
           name: '小王',
           cardtype: 'lowb',
-          id: '421658954567328906'
+          id: '421658954567328906',
+          checked: false
         }
       ],
       /* 单个添加的购票人信息 */
       addinfo: {
         name: '',
         cardtype: '',
-        id: ''
+        id: '',
+        checked: false
       },
       /* 表单验证规则 */
       rules: {

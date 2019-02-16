@@ -54,7 +54,7 @@
             <i class="el-icon-plus"></i>
           </el-upload>
           <el-dialog :visible.sync="dialogVisible">
-            <img width="100%" :src="dialogImageUrl" alt="">
+            <img width="100%" v-lazy="dialogImageUrl" alt="">
           </el-dialog>
         </div>
         <div class="content" :style="[{display:isActive == 2 ? 'block' : 'none'}]">

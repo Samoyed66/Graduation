@@ -10,7 +10,7 @@
     </div>
     <div id="box">
       <div class="information">
-        <img :src="detailCont.src">
+        <img v-lazy="detailCont.src">
         <div class="content">
           <h2>{{detailCont.picTitle}}</h2>
           <p>“{{detailCont.picTitle | TitleName}}”</p>
@@ -117,7 +117,7 @@
               <dd>猫的足迹</dd>
               <dd>{{detailCont.cparagraph | firstPage}}</dd>
               <dd>
-                <img :src="detailCont.src">
+                <img v-lazy="detailCont.src">
               </dd>
               <dd>{{detailCont.cparagraph | nextPage}}</dd>
             </dl>
@@ -138,7 +138,7 @@
             <ul class="commentCont">
               <li v-for="(comItem, comIndex) in comList" :key="comIndex">
                 <p>
-                  <img :src="detailCont.src">
+                  <img v-lazy="detailCont.src">
                   <span>{{comIndex + 12}}</span>
                 </p>
                 <p>
@@ -180,7 +180,7 @@
             <ul class="commentCont">
               <li v-for="(comItem, comIndex) in comList" :key="comIndex">
                 <p>
-                  <img :src="detailCont.src">
+                  <img v-lazy="detailCont.src">
                   <span>{{comIndex + 12}}</span>
                 </p>
                 <p>
@@ -236,7 +236,7 @@
               <dd>猫的足迹</dd>
               <dd>{{detailCont.cparagraph | firstPage}}</dd>
               <dd>
-                <img :src="detailCont.src">
+                <img v-lazy="detailCont.src">
               </dd>
               <dd>{{detailCont.cparagraph | nextPage}}</dd>
             </dl>
@@ -247,7 +247,7 @@
         <dl>
           <dt>热门推荐</dt>
           <dd @click="toDetail(hotItem)" @mouseenter="HotShow(hotIndex)" :class="{'recommend': HotNum === hotIndex}" v-for="(hotItem, hotIndex) in HotRecList" :key="hotIndex">
-            <img v-show="HotNum === hotIndex" :src="hotItem.src">
+            <img v-show="HotNum === hotIndex" v-lazy="hotItem.src">
              {{hotItem.picTitle}}
             <p>{{hotItem.time}}</p>
           </dd>
