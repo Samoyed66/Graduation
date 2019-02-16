@@ -155,6 +155,7 @@ export default {
 
 <style lang="less" scoped>
 #ticket{
+  margin-bottom: 79px;
   h1{
     height: 38px;
     line-height: 38px;

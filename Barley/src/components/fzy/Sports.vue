@@ -350,8 +350,8 @@ export default {
         color: #495060;
         font-weight: normal;
         border-bottom: 2px solid #ed0a75;
-        background: url("../../assets/images/sportIcon01.png") no-repeat;
-        background-size: 58px 39px;
+        background: url("../../assets/images/sportIcon03.png") no-repeat 9px center;
+        background-size: 39px 39px;
         margin-bottom: 15px;
         span{
           font-size: 16px;
@@ -430,6 +430,36 @@ export default {
           &:last-of-type{
             margin-right: 0;
           }
+        }
+      }
+      &:nth-of-type(4){
+        &>h4{
+          background: url("../../assets/images/sportIcon04.png") no-repeat 9px center;
+          background-size: 39px 39px;
+        }
+      }
+      &:nth-of-type(5){
+        &>h4{
+          background: url("../../assets/images/sportIcon05.png") no-repeat 9px center;
+          background-size: 39px 39px;
+        }
+      }
+      &:nth-of-type(6){
+        &>h4{
+          background: url("../../assets/images/sportIcon06.png") no-repeat 9px center;
+          background-size: 39px 39px;
+        }
+      }
+      &:nth-of-type(7){
+        &>h4{
+          background: url("../../assets/images/sportIcon07.png") no-repeat 9px center;
+          background-size: 39px 39px;
+        }
+      }
+      &:nth-of-type(8){
+        &>h4{
+          background: url("../../assets/images/sportIcon08.png") no-repeat 9px center;
+          background-size: 39px 39px;
         }
       }
     }

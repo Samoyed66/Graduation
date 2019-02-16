@@ -974,6 +974,7 @@ export default {
             margin-top: 21px;
             color: white;
             font-size: 12px;
+            cursor: pointer;
           }
         }
       }

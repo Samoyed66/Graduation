@@ -85,6 +85,7 @@ export default {
 
 <style lang="less" scoped>
 #order{
+  margin-bottom: 167px;
   h1{
     height: 38px;
     line-height: 38px;

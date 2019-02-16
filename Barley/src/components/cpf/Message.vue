@@ -69,7 +69,7 @@ export default {
   name: 'Message',
   data () {
     return {
-      minedata: ['基本资料', '兴趣爱好', '个人设置'],
+      minedata: ['基本资料', '个人设置', '兴趣爱好'],
       formLabelAlign: {
         name: '',
         telphone: '',
@@ -101,6 +101,7 @@ export default {
 
 <style lang="less" scoped>
 #message{
+  margin-bottom: 198px;
   h1{
     height: 38px;
     line-height: 38px;
