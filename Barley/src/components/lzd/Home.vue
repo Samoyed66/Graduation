@@ -17,7 +17,7 @@
             <h4>热门推荐</h4>
             <ul class="clear">
               <li @click="toDetail(hotItem)" v-for="(hotItem, hotIndex) in partList.picList" :key="hotIndex">
-                <img v-lazy="hotItem.src">
+                <img :src="hotItem.src">
                 <h4>{{hotItem.picTitle}}</h4>
                 <p>票价: <span>{{hotItem.price}}</span></p>
               </li>

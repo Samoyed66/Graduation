@@ -47,7 +47,7 @@
           <div class="box2 clear">
             <div @click="toDetail(ListItem)" class="main1" v-for="(ListItem, ListIndex) in someList" :key="ListIndex" :style="{'width': iconNum === 1 ? '227px':'908px'}">
               <div class="listPic" @mouseenter="InfoShow(ListIndex)" @mouseleave="InfoHide">
-                <img v-lazy="ListItem.src">
+                <img :src="ListItem.src">
                 <div class="cityInfo" v-show="iconNum === 1" :style="{'transform': cityInfoShow === ListIndex ? 'translateY(0)':'translateY(20px)'}">{{ListItem.city}}</div>
               </div>
               <dl v-show="iconNum !== 1">

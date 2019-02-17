@@ -45,7 +45,6 @@
           </el-form>
         </div>
         <div class="content" :style="[{display:isActive == 1 ? 'block' : 'none'}]">
-          头像设置
           <el-upload
             action="https://jsonplaceholder.typicode.com/posts/"
             list-type="picture-card"
@@ -54,11 +53,12 @@
             <i class="el-icon-plus"></i>
           </el-upload>
           <el-dialog :visible.sync="dialogVisible">
-            <img width="100%" v-lazy="dialogImageUrl" alt="">
+            <img width="100%" v-lazy="dialogImageUrl">
           </el-dialog>
         </div>
         <div class="content" :style="[{display:isActive == 2 ? 'block' : 'none'}]">
-          兴趣爱好
+          <textarea cols="100" rows="5" placeholder="请输入兴趣爱好"></textarea>
+          <button>保存</button>
         </div>
       </div>
     </div>
@@ -69,7 +69,7 @@ export default {
   name: 'Message',
   data () {
     return {
-      minedata: ['基本资料', '个人设置', '兴趣爱好'],
+      minedata: ['基本资料', '头像设置', '兴趣爱好'],
       formLabelAlign: {
         name: '',
         telphone: '',
@@ -101,7 +101,7 @@ export default {
 
 <style lang="less" scoped>
 #message{
-  margin-bottom: 198px;
+  margin-bottom: 71px;
   h1{
     height: 38px;
     line-height: 38px;
@@ -142,6 +142,24 @@ export default {
     }
     .content{
       padding-left: 30px;
+      textarea{
+        border: 1px solid #ff3c1b;
+        border-radius: 5px;
+        box-sizing: border-box;
+        padding: 5px;
+        margin-bottom: 20px;
+      }
+      &:nth-of-type(4){
+        button{
+          display: block;
+          width: 48px;
+          height: 30px;
+          background: #ff3c1b;
+          color: white;
+          border-radius: 5px;
+          cursor: pointer;
+        }
+      }
     }
     .tip{
       border: 1px solid #edd28b;
